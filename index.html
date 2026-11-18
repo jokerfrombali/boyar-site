@@ -298,7 +298,18 @@ h2.script{font:600 clamp(19px,2vw,24px)/1.25 var(--f-display);letter-spacing:-.0
 .hours .today{font-weight:800;color:var(--ink)!important}
 .cbtns{display:flex;gap:10px;flex-wrap:wrap;margin-top:auto}
 .mapbox{position:relative;min-height:520px;border-radius:var(--r-lg);overflow:hidden;background:var(--cream)}
-.mapbox iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.mapbox .lmap{position:absolute;inset:0;z-index:1}
+.leaflet-container{font:inherit;background:var(--cream)}
+.bpin{display:grid;place-items:center;width:34px;height:34px;border-radius:50% 50% 50% 4px;transform:rotate(-45deg);background:var(--red);border:3px solid #fff;box-shadow:0 4px 10px rgba(0,0,0,.3)}
+.bpin b{transform:rotate(45deg);color:#fff;font-weight:800;font-size:13px}
+.bpin.opt{background:#3d7fd6}.bpin.main{width:40px;height:40px}
+.leaflet-popup-content-wrapper{border-radius:14px}
+.leaflet-popup-content{margin:12px 14px;font-size:13.5px;line-height:1.4}
+.leaflet-popup-content b{display:block;font-size:15px;margin-bottom:2px}
+.leaflet-popup-content .pk{color:var(--muted)}
+.leaflet-popup-content .pb{display:flex;gap:8px;margin-top:8px}
+.leaflet-popup-content .pb a{background:var(--red);color:#fff;text-decoration:none;font-weight:700;border-radius:8px;padding:6px 10px}
+.leaflet-popup-content .pb a.s{background:var(--cream);color:var(--ink)}
 .mapbox .fallback{position:absolute;inset:0;display:grid;place-items:center;text-align:center;padding:20px;color:var(--muted)}
 .homecontacts{margin-top:34px}
 @media (max-width:900px){.contacts{grid-template-columns:1fr}.mapbox{min-height:300px}}
@@ -737,7 +748,6 @@ const STORES=[
  {a:"ул. Окунева, 17",h:"ежедневно 8:00–22:00",ll:[60.103728,57.921329],k:"Мясо птицы, яйцо"},
  {a:"Фестивальная ул., 3И/1",h:"пн–пт 9:00–17:00, сб 9:00–15:00",ll:[60.00492501,57.90687191],k:"Опт",ph:"+7 (922) 160-18-12",opt:true},
  {a:"Индустриальная ул., 37",h:"пн–пт 11:00–17:00",ll:[59.99276277,57.92382341],k:"Опт: рыба, морепродукты, мясо",opt:true}];
-const mapWidget=()=>"https://yandex.ru/map-widget/v1/?ll=60.02%2C57.905&z=12&pt="+STORES.map((s,i)=>`${s.ll[0]}%2C${s.ll[1]}%2Cpm2${s.opt?"bl":"rd"}m${i+1}`).join("~");
 const routeTo=s=>`https://yandex.ru/maps/?rtext=~${s.ll[1]}%2C${s.ll[0]}&rtt=auto`;
 /* Значки: WhatsApp, Telegram, VK — Simple Icons (CC0, simpleicons.org); MAX — упрощённый знак мессенджера */
 const ICO={
@@ -748,6 +758,33 @@ const ICO={
 const SOCL=[["wa","WhatsApp",()=>C.wa],["tg","Telegram",()=>C.tg],["max","MAX",()=>C.max],["vk","ВКонтакте",()=>C.vk]];
 const SOC=(big)=>`<span class="soc${big?" big":""}">${SOCL.map(([k,l,u])=>{const href=u();
   return `<a ${href?`href="${href}" target="_blank" rel="noopener"`:`href="#" data-max`} class="s-${k}" aria-label="${l}" title="${k==="max"&&!href?"MAX: "+C.tel:l}"><i><svg viewBox="0 0 24 24" aria-hidden="true">${ICO[k]}</svg></i>${big?`<span>${l}</span>`:""}</a>`}).join("")}</span>`;
+/* Карта магазинов: Leaflet + светлая подложка Esri — без рекламы и чужих организаций */
+let LEAF=null;
+function loadLeaflet(){
+  if(LEAF)return LEAF;
+  LEAF=new Promise((res,rej)=>{
+    const l=document.createElement("link");l.rel="stylesheet";l.href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css";document.head.appendChild(l);
+    const s=document.createElement("script");s.src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js";s.onload=()=>res(window.L);s.onerror=rej;document.head.appendChild(s);
+  });return LEAF;
+}
+function initStoresMap(){
+  document.querySelectorAll("[data-stores-map]").forEach(el=>{
+    if(el.dataset.ready)return;el.dataset.ready=1;
+    loadLeaflet().then(L=>{
+      const map=L.map(el,{scrollWheelZoom:false,attributionControl:true});
+      const E="https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/";
+      L.tileLayer(E+"World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}",{maxZoom:16,attribution:"Карта © Esri, HERE, Garmin, © OpenStreetMap"}).addTo(map);
+      L.tileLayer(E+"World_Light_Gray_Reference/MapServer/tile/{z}/{y}/{x}",{maxZoom:16,pane:"shadowPane"}).addTo(map);
+      const pts=STORES.map((s,i)=>{
+        const icon=L.divIcon({className:"",html:`<div class="bpin${s.opt?" opt":""}${s.main?" main":""}"><b>${i+1}</b></div>`,iconSize:s.main?[40,40]:[34,34],iconAnchor:s.main?[20,40]:[17,34],popupAnchor:[0,-34]});
+        L.marker([s.ll[1],s.ll[0]],{icon,title:s.a}).addTo(map).bindPopup(`<b>${esc(s.a)}</b><div>${esc(s.h)}</div><div class="pk">${esc(s.k)}</div><div class="pb"><a href="${routeTo(s)}" target="_blank" rel="noopener">Маршрут</a><a class="s" href="tel:${(s.ph||C.tel).replace(/[^+\d]/g,"")}">Позвонить</a></div>`);
+        return [s.ll[1],s.ll[0]];});
+      const fit=()=>{map.invalidateSize();map.fitBounds(pts,{padding:[50,50],maxZoom:14})};fit();setTimeout(fit,250);
+      map.on("click focus",()=>map.scrollWheelZoom.enable());
+      el.parentElement.querySelector(".fallback").hidden=true;
+    }).catch(()=>{const f=el.parentElement.querySelector(".fallback");if(f)f.innerHTML=`Карта не загрузилась. <a href="${C.gis}" target="_blank" rel="noopener">Все адреса в 2ГИС ↗</a>`});
+  });
+}
 function storesList(){
   return `<div class="stores">${STORES.map((s,i)=>`<div class="store${s.main?" main":""}"><span class="num${s.opt?" opt":""}">${i+1}</span><div><b>${esc(s.a)}</b><span>${esc(s.h)}</span><span class="kind">${esc(s.k)}${s.ph?` · <a href="tel:${s.ph.replace(/[^+\d]/g,"")}">${esc(s.ph)}</a>`:""}</span></div><a class="rt" href="${routeTo(s)}" target="_blank" rel="noopener" aria-label="Маршрут до ${esc(s.a)}">Маршрут</a></div>`).join("")}</div>`}
 function contactsBlock(){
@@ -758,7 +795,7 @@ function contactsBlock(){
     <div class="row">${icon("pin")}<div><small>8 точек в Нижнем Тагиле</small><b>6 магазинов и 2 оптовых склада</b></div></div>
     ${storesList()}
    </div>
-   <div class="mapbox"><div class="fallback">Карта магазинов<br><a href="${C.gis}" target="_blank" rel="noopener">все адреса в 2ГИС ↗</a></div><iframe src="${mapWidget()}" title="Магазины «Бояр» на карте" loading="lazy" allowfullscreen></iframe></div>
+   <div class="mapbox"><div class="fallback">Загружаем карту магазинов…</div><div class="lmap" data-stores-map></div></div>
   </div>`;
 }
 function viewContacts(){
@@ -795,6 +832,7 @@ function route(){
     const show=j=>{i=j;document.getElementById("slider").innerHTML=slideHTML(sl,i,pageOf)};
     SL=setInterval(()=>{if(document.getElementById("slider"))show((i+1)%sl.length)},5000);
     document.getElementById("slider").addEventListener("click",e=>{const d=e.target.closest("[data-slide]");if(d){show(+d.dataset.slide);clearInterval(SL)}})}
+  initStoresMap();
   if(!route.first)window.scrollTo({top:0});route.first=false;
 }
 route.first=true;
@@ -806,13 +844,33 @@ document.addEventListener("click",e=>{
   const add=e.target.closest("[data-add]");
   if(add){const q=document.querySelector(".qty span");const n=add.closest(".buyrow")&&q?parseInt(q.textContent)||1:1;
     cart+=n;cartSum+=(+add.dataset.add||0)*n;document.getElementById("cartN").textContent=cart;document.getElementById("cartSum").textContent=rub(cartSum);
-    add.classList.add("added");add.lastChild.textContent="В корзине";toast("Добавлено в корзину");return}
+    flyToCart(add);add.classList.add("added");add.lastChild.textContent="В корзине";toast("Добавлено в корзину");return}
   const mx=e.target.closest("[data-max]");if(mx){e.preventDefault();try{navigator.clipboard.writeText(C.telh).catch(()=>{})}catch(_){};toast("MAX: найдите нас по номеру "+C.tel+" (номер скопирован)");return}
   if(e.target.closest("#cartBtn")){toast(cart?`В корзине ${cart} шт. на ${rub(cartSum)} · оформление заказа подключим при запуске`:"Корзина пуста");return}
   if(e.target.closest("#mobMenu")){document.getElementById("side").classList.toggle("open");return}
 });
 document.addEventListener("submit",e=>{if(e.target.id!=="optForm")return;e.preventDefault();const g=id=>document.getElementById(id).value.trim();const txt=`Здравствуйте! Запрос оптового прайса.\nИмя: ${g("of-name")}\nКомпания: ${g("of-co")}\nТелефон: ${g("of-tel")}\n${g("of-msg")}`;window.open(C.wa+"?text="+encodeURIComponent(txt),"_blank","noopener")});
 document.getElementById("searchForm").addEventListener("submit",e=>{e.preventDefault();const v=document.getElementById("q").value.trim();if(v){document.getElementById("sheet").innerHTML=viewSearch(v);window.scrollTo({top:0})}});
+function flyToCart(btn){
+  const cart=document.getElementById("cartBtn");if(!cart)return;
+  const bump=()=>cart.closest(".cartbox").animate([{transform:"scale(1)"},{transform:"scale(1.12)"},{transform:"scale(1)"}],{duration:380,easing:"ease-out"});
+  if(matchMedia("(prefers-reduced-motion: reduce)").matches){bump();return}
+  const host=btn.closest(".card")||btn.closest(".product")||document;
+  const src=host.querySelector(".pic img.ph, .gal img.ph")||host.querySelector(".pic, .gal");
+  if(!src){bump();return}
+  const a=src.getBoundingClientRect(),b=cart.getBoundingClientRect();
+  const sz=Math.min(a.width,a.height,180);
+  const fly=src.tagName==="IMG"?src.cloneNode():document.createElement("div");
+  if(fly.tagName!=="IMG"){fly.innerHTML=src.innerHTML}
+  Object.assign(fly.style,{position:"fixed",left:(a.left+a.width/2-sz/2)+"px",top:(a.top+a.height/2-sz/2)+"px",width:sz+"px",height:sz+"px",objectFit:"cover",borderRadius:"50%",zIndex:60,pointerEvents:"none",boxShadow:"0 10px 30px rgba(0,0,0,.35)",overflow:"hidden",inset:"auto"});
+  fly.removeAttribute("loading");document.body.appendChild(fly);
+  const dx=b.left+b.width/2-(a.left+a.width/2),dy=b.top+b.height/2-(a.top+a.height/2);
+  const anim=fly.animate([
+    {transform:"translate(0,0) scale(1)",opacity:1},
+    {transform:`translate(${dx*0.55}px,${dy*0.55-60}px) scale(.55)`,opacity:1,offset:.6},
+    {transform:`translate(${dx}px,${dy}px) scale(.12)`,opacity:.4}],{duration:750,easing:"cubic-bezier(.5,0,.75,1)"});
+  anim.onfinish=()=>{fly.remove();bump()};
+}
 function toast(t){let el=document.querySelector(".toast");if(!el){el=document.createElement("div");el.className="toast";el.setAttribute("role","status");document.body.appendChild(el)}el.textContent=t;el.hidden=false;clearTimeout(toast.t);toast.t=setTimeout(()=>el.hidden=true,2400)}
 // SEO-слой выключен для показа заказчику: включить — document.body.classList.add("seo-on")
 window.addEventListener("hashchange",route);route();
