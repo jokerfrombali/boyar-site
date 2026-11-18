@@ -8,6 +8,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Бояр — тестовый сайт</title>
 <meta name="claude:viewport-fit-sides" content="cover">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Store", "name": "Бояр", "description": "Рыба, икра и морепродукты, натуральное копчение от производителя", "telephone": ["+7 (922) 160-18-03", "+7 (3435) 37-81-50"], "address": {"@type": "PostalAddress", "streetAddress": "Красноармейская ул., 79", "addressLocality": "Нижний Тагил", "addressRegion": "Свердловская область", "addressCountry": "RU"}, "geo": {"@type": "GeoCoordinates", "latitude": 57.919457, "longitude": 59.951487}, "openingHoursSpecification": [{"@type": "OpeningHoursSpecification", "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"], "opens": "09:00", "closes": "23:00"}], "hasMap": "https://yandex.ru/maps/org/boyar/49383595920/", "sameAs": ["https://vk.ru/boyar_nt", "https://t.me/boyarnt", "https://yandex.ru/maps/org/boyar/49383595920/"], "department": [{"@type": "Store", "name": "Бояр", "address": {"@type": "PostalAddress", "streetAddress": "ул. Захарова, 2А", "addressLocality": "Нижний Тагил", "addressCountry": "RU"}, "geo": {"@type": "GeoCoordinates", "latitude": 57.870709, "longitude": 59.94929}}, {"@type": "Store", "name": "Бояр", "address": {"@type": "PostalAddress", "streetAddress": "Садовая ул., 2", "addressLocality": "Нижний Тагил", "addressCountry": "RU"}, "geo": {"@type": "GeoCoordinates", "latitude": 57.910151, "longitude": 59.991009}}, {"@type": "Store", "name": "Бояр", "address": {"@type": "PostalAddress", "streetAddress": "ул. Юности, 16В", "addressLocality": "Нижний Тагил", "addressCountry": "RU"}, "geo": {"@type": "GeoCoordinates", "latitude": 57.909385, "longitude": 60.093289}}, {"@type": "Store", "name": "Бояр", "address": {"@type": "PostalAddress", "streetAddress": "ул. Черных, 42", "addressLocality": "Нижний Тагил", "addressCountry": "RU"}, "geo": {"@type": "GeoCoordinates", "latitude": 57.916525, "longitude": 59.939768}}, {"@type": "Store", "name": "Бояр", "address": {"@type": "PostalAddress", "streetAddress": "ул. Окунева, 17", "addressLocality": "Нижний Тагил", "addressCountry": "RU"}, "geo": {"@type": "GeoCoordinates", "latitude": 57.921329, "longitude": 60.103728}}]}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lobster&family=Unbounded:wght@500;600;700&family=Manrope:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap">
 <style>
@@ -49,7 +50,8 @@ svg{display:block}
 .search input{flex:1;min-width:0;background:none;border:0;color:#fff;font:inherit;padding:9px 0;outline:none}
 .search input::placeholder{color:rgba(255,255,255,.65)}
 .search button{background:none;border:0;padding:6px}
-.phone{font-weight:700;white-space:nowrap}
+.phone{font-weight:700;white-space:nowrap;text-decoration:none;font-size:15px}
+.phone:hover{color:#fff}
 .brandrow{display:grid;grid-template-columns:auto minmax(0,1fr) auto auto;align-items:center;gap:18px 26px;padding-block:6px 22px}
 .logo{display:block;width:190px;text-decoration:none;filter:drop-shadow(0 6px 14px rgba(0,0,0,.35))}
 .logo svg{width:100%;height:auto}
@@ -209,9 +211,67 @@ h2.script{font:600 clamp(19px,2vw,24px)/1.25 var(--f-display);letter-spacing:-.0
 .facts dd{margin:2px 0 0;font-weight:600}
 .ask{border:1px solid var(--line);border-radius:18px;padding:16px 18px;margin-top:16px}
 .ask h3{font:600 17px var(--f-display);margin:0 0 8px}
+.askphone{display:inline-block;font-weight:800;font-size:18px;text-decoration:none;margin:0 10px 6px 0}
 .ask span{display:inline-block;background:var(--cream);border-radius:999px;padding:4px 12px;font-weight:600}
 .src{font-size:12px;color:var(--muted);margin-top:14px}
 
+/* гирлянда */
+.garland{position:relative;height:30px;display:flex;justify-content:space-between;padding:0 12px;overflow:hidden;background:linear-gradient(#1c130d,transparent)}
+.garland::before{content:"";position:absolute;left:0;right:0;top:-14px;height:30px;border-bottom:2px solid #1a3a22;border-radius:0 0 50% 50%/0 0 100% 100%;background:radial-gradient(60px 26px at 50% 0,transparent 98%,transparent) ;-webkit-mask:repeating-linear-gradient(90deg,#000 0 100%)}
+.garland i{position:relative;top:6px;width:9px;height:14px;border-radius:50% 50% 45% 45%;background:var(--c);box-shadow:0 0 10px 2px var(--c);animation:blink 1.8s ease-in-out infinite var(--d)}
+.garland i::before{content:"";position:absolute;top:-4px;left:2px;width:5px;height:4px;background:#2c3b2e;border-radius:1px}
+.garland i:nth-child(odd){top:12px}
+@keyframes blink{0%,100%{opacity:1;filter:brightness(1.15)}50%{opacity:.35;box-shadow:none;filter:brightness(.7)}}
+@media (prefers-reduced-motion:reduce){.garland i{animation:none}}
+/* мессенджеры */
+.soc{display:inline-flex;gap:6px;vertical-align:middle;margin-left:8px}
+.soc a{width:32px;height:32px;border-radius:50%;display:grid;place-items:center;color:#fff;text-decoration:none;transition:transform .15s}
+.soc a:hover{transform:translateY(-2px)}
+.soc svg{width:18px;height:18px}
+.s-wa{background:#25d366}.s-tg{background:#2aabee}.s-vk{background:#0077ff}.s-ch{background:var(--taupe)}
+.hcontacts{display:flex;align-items:center;gap:6px;white-space:nowrap}
+.cinfo .soc{display:flex;margin:8px 0 0}
+/* доверие и новогодний блок */
+.trust{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin:0 0 22px}
+.trust div{background:var(--cream);border-radius:16px;padding:14px 16px}
+.trust b{display:block;font:600 17px/1.2 var(--f-display);letter-spacing:-.01em}
+.trust span{color:var(--muted);font-size:13px}
+.nyband{position:relative;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.7fr);gap:22px;align-items:center;background:radial-gradient(100% 140% at 0 0,#b01c25,#6d0f15);color:#fff;border-radius:var(--r-lg);padding:26px;margin:0 0 28px;overflow:hidden}
+.nyband::after{content:"";position:absolute;inset:0;pointer-events:none;background-image:radial-gradient(2px 2px at 20% 30%,#fff8,transparent),radial-gradient(1.5px 1.5px at 70% 20%,#fff9,transparent),radial-gradient(2px 2px at 40% 80%,#fff6,transparent),radial-gradient(1.5px 1.5px at 85% 60%,#fff8,transparent),radial-gradient(2px 2px at 10% 70%,#fff7,transparent),radial-gradient(1.5px 1.5px at 55% 45%,#fff6,transparent);background-size:220px 220px}
+.nyband .chip{display:inline-block;background:rgba(255,255,255,.16);border-radius:999px;padding:4px 12px;font-size:13px;font-weight:700}
+.nyband h2{font:600 clamp(22px,2.4vw,30px)/1.15 var(--f-display);margin:12px 0 8px;letter-spacing:-.015em}
+.nyband p{margin:0 0 16px;color:#ffe1e1;font-size:14.5px}.nyband p a{color:#fff;font-weight:700}
+.nyband .card .name,.nyband .card .price b{color:#fff}.nyband .card .kg,.nyband .card .meta{color:#ffd0d0}
+.nyband .card .btn{background:#fff;color:var(--red-d)}
+.nygrid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;position:relative;z-index:1}
+.btn-ghost-w{background:transparent;color:#fff;box-shadow:inset 0 0 0 1.5px rgba(255,255,255,.6)}
+.stores{display:flex;flex-direction:column;gap:2px;margin-top:4px}
+.store{display:grid;grid-template-columns:26px minmax(0,1fr) auto;gap:10px;align-items:center;padding:8px 0;border-top:1px solid var(--cream-2)}
+.store .num{width:26px;height:26px;border-radius:50%;background:var(--red);color:#fff;display:grid;place-items:center;font-weight:800;font-size:12.5px}
+.store .num.opt{background:#3d7fd6}
+.store b{display:block;font-size:14.5px}.store span{display:block;font-size:12.5px;color:var(--muted)}
+.store .kind a{color:inherit}
+.store .rt{font-size:12.5px;font-weight:700;color:var(--red);text-decoration:none}
+.store.main b::after{content:" · главный";color:var(--red);font-weight:600;font-size:12px}
+@media (max-width:1100px){.nygrid{grid-template-columns:repeat(2,minmax(0,1fr))}.nyband{grid-template-columns:1fr}}
+@media (max-width:700px){.trust{grid-template-columns:1fr 1fr}.hcontacts .soc{display:none}}
+/* контакты */
+.contacts{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.4fr);gap:22px;align-items:stretch}
+.cinfo{display:flex;flex-direction:column;gap:16px;background:var(--cream);border-radius:var(--r-lg);padding:22px}
+.cinfo .row{display:grid;grid-template-columns:34px minmax(0,1fr);gap:12px;align-items:start}
+.cinfo .row .ico{width:34px;height:34px;padding:7px;border-radius:50%;background:#fff;color:var(--red)}
+.cinfo small{display:block;color:var(--muted);font-size:12.5px;font-weight:600;text-transform:uppercase;letter-spacing:.08em}
+.cinfo b{font-size:16px;font-weight:700}
+.cinfo .big{white-space:nowrap;font-size:clamp(18px,5vw,22px)!important;font:600 22px/1.2 var(--f-display);text-decoration:none;color:var(--ink)}
+.hours{display:grid;grid-template-columns:auto 1fr;gap:2px 16px;font-size:14px;margin-top:4px}
+.hours span:nth-child(odd){color:var(--muted)}
+.hours .today{font-weight:800;color:var(--ink)!important}
+.cbtns{display:flex;gap:10px;flex-wrap:wrap;margin-top:auto}
+.mapbox{position:relative;min-height:520px;border-radius:var(--r-lg);overflow:hidden;background:var(--cream)}
+.mapbox iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.mapbox .fallback{position:absolute;inset:0;display:grid;place-items:center;text-align:center;padding:20px;color:var(--muted)}
+.homecontacts{margin-top:34px}
+@media (max-width:900px){.contacts{grid-template-columns:1fr}.mapbox{min-height:300px}}
 /* статьи, карта, услуги */
 .alist{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:14px}
 .acard{display:flex;flex-direction:column;gap:10px;text-decoration:none}
@@ -259,6 +319,14 @@ footer .logo{width:130px}
 footer nav{display:flex;flex-wrap:wrap;gap:10px 26px}
 footer nav a{text-decoration:none}footer nav a:hover{color:#fff}
 footer p{margin:10px 0 0;font-size:12.5px;opacity:.75}
+.fcols{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px 34px}
+.fcols h5{margin:0 0 10px;font:600 13px var(--f-display);color:#fff;letter-spacing:.02em}
+.fcols a{display:block;text-decoration:none;padding:3px 0}.fcols a:hover{color:#fff}
+.fnote{grid-column:1/-1}
+.fcontacts{display:flex;flex-direction:column;gap:4px;font-weight:600;color:#fff}
+@media (max-width:760px){.fcols{grid-template-columns:1fr}}
+.fcontacts a{text-decoration:none}.fcontacts a:hover{text-decoration:underline}
+.fcontacts a:first-child{font-size:17px}
 .toast{position:fixed;left:50%;bottom:calc(22px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--ink);color:#fff;padding:11px 18px;border-radius:12px;font-size:14px;z-index:40;box-shadow:0 10px 30px rgba(0,0,0,.35)}
 .mobmenu{display:none}
 
@@ -300,17 +368,18 @@ footer p{margin:10px 0 0;font-size:12.5px;opacity:.75}
 @media (prefers-reduced-motion:reduce){*{transition:none!important}}
 </style>
 
-<div class="strip">Натуральное копчение от производителя · Рыба, икра, морепродукты · <b>Нижний Тагил</b></div>
+<div class="garland" id="garland" aria-hidden="true"></div>
+<div class="strip">🎄 Икра к Новому году с доставкой по Нижнему Тагилу · <b>8 магазинов</b> · <a href="tel:+79221601803" style="color:inherit;text-decoration:none"><b>+7 (922) 160-18-03</b></a></div>
 <div class="wrap">
   <div class="navrow">
-    <nav><a href="#p-P0004">Доставка и оплата</a><a href="#p-P0003">Оптовикам</a><a href="#p-P0005">Статьи</a><a href="#map">Карта сайта</a></nav>
+    <nav><a href="#p-P0002">Каталог</a><a href="#p-P0004">Доставка и оплата</a><a href="#p-P0003">Оптовикам</a><a href="#contacts">Контакты</a></nav>
     <form class="search" id="searchForm" role="search"><input id="q" type="search" placeholder="Поиск: горбуша, креветки, икра…" aria-label="Поиск по каталогу"><button type="submit" aria-label="Найти"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg></button></form>
-    <span class="phone">☎ телефон уточнить</span>
+    <span class="hcontacts" id="hcontacts"></span>
   </div>
   <div class="brandrow">
     <a class="logo" href="#home" aria-label="Бояр — на главную" id="logoSlot"></a>
-    <div class="claim"><div class="s">Рыба, икра и морепродукты</div><div class="t">Магазин и доставка · ул. Красноармейская, 79 · 9:00–23:00</div></div>
-    <a class="board" href="#p-P0004"><span>Доставка по Нижнему Тагилу<small>условия уточняются</small></span></a>
+    <div class="claim"><div class="s">Рыба, икра и морепродукты</div><div class="t">Натуральное копчение · магазин и доставка</div></div>
+    <a class="board" href="#p-P0007"><span>🎄 Икра к Новому году<small>доставка по Нижнему Тагилу</small></span></a>
     <div class="cartw">
       <div class="cartbox">
         <button type="button" aria-label="Избранное"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 20s-7-4.4-7-10a4 4 0 017-2.6A4 4 0 0119 10c0 5.6-7 10-7 10z"/></svg></button>
@@ -323,8 +392,12 @@ footer p{margin:10px 0 0;font-size:12.5px;opacity:.75}
 </div>
 <footer><div class="wrap">
   <a class="logo" href="#home" aria-label="Бояр" id="logoSlot2"></a>
-  <div><nav><a href="#p-P0002">Каталог</a><a href="#p-P0003">Оптовикам</a><a href="#p-P0004">Доставка и оплата</a><a href="#p-P0005">Статьи</a><a href="#map">Карта сайта</a></nav>
-  <p>«Бояр» — рыба и морепродукты, Нижний Тагил, ул. Красноармейская, 79. Тестовый прототип: товары и цены временно взяты у конкурента, будут заменены прайсом «Бояр».</p></div>
+  <div class="fcols">
+    <div><h5>Покупателям</h5><a href="#p-P0002">Каталог</a><a href="#p-P0004">Доставка и оплата</a><a href="#p-P0003">Оптовикам</a><a href="#contacts">Контакты</a><a href="#map">Карта сайта</a></div>
+    <div><h5>Статьи о рыбе</h5><div id="fArticles"></div></div>
+    <div><h5>Магазин «Бояр»</h5><div class="fcontacts"><a href="tel:+79221601803">+7 (922) 160-18-03</a><span>Справочная: +7 (3435) 37-81-50</span><span>6 магазинов и 2 оптовых склада</span><a href="#contacts">Все 8 адресов →</a></div><div id="fsoc"></div></div>
+    <p class="fnote">Тестовый прототип: товары, цены и фото временно взяты у конкурента и будут заменены прайсом «Бояр».</p>
+  </div>
 </div></footer>
 <button type="button" class="seobtn" id="seoBtn" aria-pressed="false"><i></i>SEO-разметка</button>
 
@@ -407,6 +480,8 @@ const PROC_FORMS={"/catalog/kopchenaya-ryba/":["холодного копчен�
  "/catalog/zhivaya-ryba/":["живая"],"/catalog/file-i-steyki/":["филе","стейки"],
  "/catalog/konservy-i-preservy/":["консервы"],"/catalog/farsh-i-polufabrikaty/":["фарш","полуфабрикаты"]};
 document.getElementById("logoSlot").innerHTML=LOGO;
+setTimeout(()=>{const h=document.getElementById("hcontacts");if(h)h.innerHTML=`<a class="phone" href="tel:${C.telh}">${C.tel}</a>${SOC()}`;const g=document.getElementById("garland");if(g){const cols=["#e8443a","#f6c445","#3fae5a","#4aa3e8","#f07ac0"];g.innerHTML=Array.from({length:48},(_,i)=>`<i style="--c:${cols[i%5]};--d:${(i%7)*0.27}s"></i>`).join("")}});
+setTimeout(()=>{const fs=document.getElementById("fsoc");if(fs)fs.innerHTML=SOC();const f=document.getElementById("fArticles");if(f)f.innerHTML=`<a href="#p-P0005">Все статьи</a>`+kids("P0005").map(h=>`<a href="#p-${h.id}">${esc(h.h1)}</a>`).join("")});
 document.getElementById("logoSlot2").innerHTML=LOGO.replace(/id="b/g,'id="f').replace(/url\(#b/g,"url(#f");
 
 /* ---------- иллюстрации-заглушки вместо фото ---------- */
@@ -501,7 +576,10 @@ const IC={fish:'<path d="M3 12c3-4 9-5 13-2l4-3c-1 3-1 7 0 10l-4-3c-4 3-10 2-13-
  salt:'<path d="M8 4h8l1 4H7z"/><path d="M7 8h10v11a1 1 0 01-1 1H8a1 1 0 01-1-1z"/><path d="M10 12h.01M14 12h.01M12 15h.01"/>',
  truck:'<path d="M3 7h11v9H3zM14 10h4l3 3v3h-7"/><circle cx="7" cy="17" r="1.6"/><circle cx="17" cy="17" r="1.6"/>',
  box:'<path d="M3 8l9-4 9 4-9 4z"/><path d="M3 8v8l9 4 9-4V8"/><path d="M12 12v8"/>',
- book:'<path d="M4 5h6a2 2 0 012 2v12a2 2 0 00-2-2H4zM20 5h-6a2 2 0 00-2 2v12a2 2 0 012-2h6z"/>'};
+ book:'<path d="M4 5h6a2 2 0 012 2v12a2 2 0 00-2-2H4zM20 5h-6a2 2 0 00-2 2v12a2 2 0 012-2h6z"/>',
+ phone:'<path d="M5 4h4l2 5-2.5 1.5a11 11 0 005 5L15 13l5 2v4a2 2 0 01-2 2A16 16 0 013 6a2 2 0 012-2z"/>',
+ pin:'<path d="M12 21s-7-6.2-7-11a7 7 0 0114 0c0 4.8-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/>',
+ clock:'<circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/>'};
 const icon=k=>`<svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">${IC[k]||IC.fish}</svg>`;
 const MENU_IC={P0006:"fish",P0007:"caviar",P0008:"fish",P0009:"shrimp",P0010:"fish",P0011:"fish",P0012:"fish",P0013:"fish",P0014:"patty",P0015:"steak",P0016:"can",P0017:"smoke",P0018:"drop",P0019:"salt",P0020:"snow",P0021:"dried",P0022:"drop",P0003:"box",P0004:"truck",P0005:"book"};
 
@@ -557,35 +635,47 @@ function side(activeId,withFilter){
     <a class="promo-side" href="#p-P0017">Своё копчение<i>🔥</i></a>
     <nav class="menu"><h4>По виду</h4>${SPECIES_CATS.map(c=>a(c,subs(c))).join("")}
       <h4>По приготовлению</h4>${PROC_CATS.map(c=>a(c)).join("")}
-      <h4>Покупателям</h4>${a(byId.P0003)}${a(byId.P0004)}${a(byId.P0005)}</nav>
+      <h4>Покупателям</h4>${a(byId.P0003)}${a(byId.P0004)}<a href="#contacts">${icon("pin")}<span>Контакты</span><span class="chev">›</span></a></nav>
   </aside>`;
 }
 const withSide=(activeId,html,filter)=>`<div class="cols">${side(activeId,filter)}<main>${html}</main></div>`;
 const priceRange=items=>{const v=items.filter(i=>i.real).map(i=>i.real.price);return v.length?[Math.min(...v),Math.max(...v)].map(x=>x.toLocaleString("ru-RU")):["—","—"]};
 
 /* ---------- экраны ---------- */
+const REDIK=/^(?!.*(масл|паст|паштет)).*(горбуш|кет[аыуе]?\b|кеты|нерк|кижуч|чавыч|форел|лосос|красн|с[её]мг)/i;
 function slides(){
-  const all=(window.PRODUCTS||[]);
-  const pick=(re)=>all.filter(p=>re.test(p.form+" "+p.name)).sort((a,b)=>b.price-a.price)[0];
-  return [["Своё копчение",pick(/холодного копчения/),"smoke"],["Икра",pick(/икра/i),"caviar"],["Морепродукты",pick(/кревет/i),"shrimp"]].filter(s=>s[1]);
+  const all=(window.PRODUCTS||[]).filter(p=>p.img);
+  const ik=all.filter(p=>p.form==="икра"&&REDIK.test(p.name)).sort((a,b)=>b.price-a.price);
+  const pick=re=>all.filter(p=>re.test(p.form+" "+p.name)).sort((a,b)=>b.price-a.price)[0];
+  return [["Икра к Новому году",ik[0],"caviar"],["Икра к Новому году",ik[3]||ik[1],"caviar"],["Своё копчение",pick(/холодного копчения/),"smoke"]].filter(s=>s[1]);
 }
 function viewHome(){
   const home=byId.P0001, sl=slides();
   const hits=S.filter(isSp).sort((a,b)=>(b.broad||0)-(a.broad||0)).map(sp=>productsOf(sp)[0]).filter(Boolean).sort((a,b)=>(b.real?1:0)-(a.real?1:0)).slice(0,8);
   const pageOf=pr=>{const pg=byId[pr.page];const i=(REAL[pr.page]||[]).indexOf(pr);return`#i-${pg.id}-${i}`};
   const tiles=SPECIES_CATS.concat(PROC_CATS);
+  const ikra=productsOf(byId.P0007).filter(it=>it.real&&it.real.img&&REDIK.test(it.real.name)).sort((a,b)=>a.real.price-b.real.price);
   const arts=kids("P0005").map(h=>kids(h.id).sort((a,b)=>(b.broad||0)-(a.broad||0))[0]).filter(Boolean).slice(0,4);
   return `${seoBox(home)}
   <section class="hero">
     <div class="slide" id="slider">${sl.length?slideHTML(sl,0,pageOf):""}</div>
     <div class="promos">
-      <a class="promo red" href="#p-P0003"><span class="chip">Оптовикам</span><div><h3>Опт для кафе и магазинов</h3><p>Прайс и условия поставок для бизнеса</p></div><span class="art">${art("frozen","#fff")}${photo(imgFor("P0020","свежемороженая"),"")}</span></a>
-      <a class="promo" href="#p-P0004"><span class="chip">Доставка</span><div><h3>Привезём домой</h3><p>По Нижнему Тагилу и области — условия уточняются</p></div><span class="art">${art("smoke","#fff")}${photo(imgFor("P0017","холодного копчения"),"")}</span></a>
+      <a class="promo red" href="#p-P0007"><span class="chip">🎄 Новый год</span><div><h3>Икра с доставкой к праздничному столу</h3><p>Красная икра горбуши, кеты, нерки — привезём по Нижнему Тагилу</p></div><span class="art">${art("caviar","#fff")}${photo(imgFor("P0007","икра","икра горбуши"),"")}</span></a>
+      <a class="promo" href="#p-P0003"><span class="chip">Оптовикам</span><div><h3>Икра и рыба оптом</h3><p>Новогодние заказы для кафе, магазинов и корпоративов</p></div><span class="art">${art("smoke","#fff")}${photo(imgFor("P0017","холодного копчения"),"")}</span></a>
     </div>
   </section>
+  <section class="trust">${[
+    ["8 магазинов","в Нижнем Тагиле"],
+    FOUNDED?[`С ${FOUNDED} года`,"кормим Тагил рыбой"]:["Своё копчение","и переработка рыбы"],
+    ["Доставка икры","к новогоднему столу"],
+    ["Розница и опт","для дома и бизнеса"]].map(x=>`<div><b>${x[0]}</b><span>${x[1]}</span></div>`).join("")}</section>
+  <section class="nyband"><div><span class="chip">🎁 До 31 декабря</span><h2>Красная икра к Новому году</h2><p>Закажите икру заранее — привезём к праздничному столу по Нижнему Тагилу. Условия доставки уточняйте по телефону <a href="tel:${C.telh}">${C.tel}</a>.</p>
+    <div class="cbtns"><a class="btn btn-white" href="#p-P0007">Выбрать икру</a><a class="btn btn-ghost-w" href="${C.wa}" target="_blank" rel="noopener">Заказать в WhatsApp</a></div></div>
+    <div class="nygrid">${ikra.slice(0,4).map(card).join("")}</div></section>
   ${withSide("P0001",`<div class="tiles">${tiles.map(tile).join("")}</div>
   <h2 class="script">Чаще всего ищут</h2><div class="grid">${hits.map(card).join("")}</div>
-  <h2 class="script">Полезно знать</h2><div class="alist">${arts.map(acard).join("")}</div>`)}`;
+`)}
+  <div class="homecontacts"><h2 class="script">Магазины «Бояр» на карте</h2>${contactsBlock()}</div>`;
 }
 function slideHTML(sl,i,pageOf){const [k,p,kind]=sl[i];
   return `<div><span class="k">${esc(k)}</span><h2>${esc(p.name)}</h2><p class="sub">${esc(p.pack||"")}</p>
@@ -615,7 +705,7 @@ function viewSpecies(p){
   return withSide(p.id,`${crumbs(p)}<h1 class="script c">${esc(p.h1)}</h1>${seoBox(p)}
    <div class="pills">${sib.map(s=>`<a class="pill ${s.id===p.id?"on":""}" href="#p-${s.id}">${esc(s.h1)}</a>`).join("")}</div>
    ${sortbar(items.length)}<div class="grid">${items.map(card).join("")}</div>
-   ${p.links.length?`<h2 class="script">Полезно знать</h2><div class="alist">${p.links.map(i=>byId[i]).filter(Boolean).slice(0,4).map(acard).join("")}</div>`:""}`,priceRange(items))}
+`,priceRange(items))}
 function viewItem(p,idx){
   const it=productsOf(p)[idx]; if(!it)return isSp(p)?viewSpecies(p):viewCategory(p);
   const r=it.real||{}, f=r.facts||{}, name=itName(it), qq=queryFor(it), kind=kindFor(name,it.form,p.id);
@@ -628,7 +718,7 @@ function viewItem(p,idx){
    ${seoBox({...fake,main:qq[0],broad:qq[1],quoted:null,top:[]},`<div style="margin-top:6px">Карточка заводится из прайса. Запрос «${esc(qq[0]||"")}» продвигает страница «${esc(p.h1)}», карточка её поддерживает.</div>`)}
    <div class="product">
     <div><div class="gal">${art(kind)}${photo(r.img||imgFor(p.id,it.form,p.h1),name)}<span class="note">Тестовое фото с сайта конкурента</span></div>
-     <div class="ask"><h3>Есть вопросы?</h3><span>Телефон магазина — уточнить</span></div></div>
+     <div class="ask"><h3>Есть вопросы?</h3><a class="askphone" href="tel:+79221601803">+7 (922) 160-18-03</a> <span>ежедневно 9:00–23:00</span></div></div>
     <div class="buy">
      <div class="price">${r.price?`<b>${rub(r.price)}</b>${r.kg?`<span class="kg">${rub(r.kg)}/кг</span>`:""}`:`<b><small>Цена по запросу</small></b>`}</div>
      ${r.pack?`<div class="packs"><span>${esc(r.pack)}</span>${r.kg?`<span class="on">${rub(r.kg)}/кг</span>`:""}</div>`:"<div style='height:14px'></div>"}
@@ -652,6 +742,45 @@ function prose(p){return `<div class="prose">${(p.blocks||[]).filter(b=>b[0]!=="
 function viewArticle(p){return withSide(p.id,`${crumbs(p)}<h1 class="script">${esc(p.h1)}</h1>${seoBox(p)}${prose(p)}`)}
 function viewService(p){return withSide(p.id,`${crumbs(p)}<h1 class="script">${esc(p.h1)}</h1>${seoBox(p)}${prose(p)}
    <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:18px"><a class="btn btn-red" href="#p-P0002">Перейти в каталог</a></div>`)}
+/* Контакты: Яндекс Карты и 2ГИС, 18.11.2026 */
+const FOUNDED=null; // год основания — вписать, когда «Бояр» подтвердит (например 2005)
+const C={tel:"+7 (922) 160-18-03",telh:"+79221601803",tel2:"+7 (3435) 37-81-50",tel2h:"+73435378150",tel2note:"единая справочная: пн–пт 9:00–17:00, сб 9:00–13:00",
+  wa:"https://wa.me/79221601803",tg:"https://t.me/+79221601803",tgch:"https://t.me/boyarnt",vk:"https://vk.ru/boyar_nt",
+  maps:"https://yandex.ru/maps/org/boyar/49383595920/",gis:"https://2gis.ru/ntagil/branches/70000001032830552"};
+const STORES=[
+ {a:"Красноармейская ул., 79",h:"ежедневно 9:00–23:00",ll:[59.951713,57.919867],k:"Рыба и морепродукты, пиво",main:true},
+ {a:"ул. Захарова, 2А",h:"ежедневно 9:00–23:00",ll:[59.94929,57.870709],k:"Рыба и морепродукты, пиво"},
+ {a:"Садовая ул., 2",h:"ежедневно 8:00–22:00",ll:[59.991009,57.910151],k:"Рыба и морепродукты",ph:"+7 (3435) 41-77-26"},
+ {a:"ул. Юности, 16В (ТЦ «Стрелец»)",h:"пн–чт 9:00–22:00, пт–сб 9:00–23:00, вс 9:00–22:00",ll:[60.093289,57.909385],k:"Рыба и морепродукты, пиво"},
+ {a:"ул. Черных, 42",h:"ежедневно 8:00–21:00",ll:[59.939768,57.916525],k:"Магазин продуктов"},
+ {a:"ул. Окунева, 17",h:"ежедневно 8:00–22:00",ll:[60.103728,57.921329],k:"Мясо птицы, яйцо"},
+ {a:"Фестивальная ул., 3И/1",h:"пн–пт 9:00–17:00, сб 9:00–15:00",ll:[60.00492501,57.90687191],k:"Опт",ph:"+7 (922) 160-18-12",opt:true},
+ {a:"Индустриальная ул., 37",h:"пн–пт 11:00–17:00",ll:[59.99276277,57.92382341],k:"Опт: рыба, морепродукты, мясо",opt:true}];
+const mapWidget=()=>"https://yandex.ru/map-widget/v1/?ll=60.02%2C57.905&z=12&pt="+STORES.map((s,i)=>`${s.ll[0]}%2C${s.ll[1]}%2Cpm2${s.opt?"bl":"rd"}m${i+1}`).join("~");
+const routeTo=s=>`https://yandex.ru/maps/?rtext=~${s.ll[1]}%2C${s.ll[0]}&rtt=auto`;
+const SOC=()=>`<span class="soc">
+  <a href="${C.wa}" target="_blank" rel="noopener" aria-label="WhatsApp" title="WhatsApp" class="s-wa"><svg viewBox="0 0 24 24"><path fill="currentColor" d="M12 2a10 10 0 00-8.6 15.1L2 22l5-1.3A10 10 0 1012 2zm0 18.2a8.2 8.2 0 01-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1112 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8s-.4-.1-.6.1-.7.8-.8 1-.3.2-.5.1a6.7 6.7 0 01-3.3-2.9c-.3-.4.3-.4.7-1.3a.5.5 0 000-.5l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 00-.7.3 3 3 0 00-.9 2.2 5.2 5.2 0 001.1 2.8 11.9 11.9 0 004.6 4c1.7.7 2.4.8 3.2.7a2.8 2.8 0 001.8-1.3 2.3 2.3 0 00.2-1.3c-.1-.1-.3-.2-.5-.3z"/></svg></a>
+  <a href="${C.tg}" target="_blank" rel="noopener" aria-label="Telegram" title="Написать в Telegram" class="s-tg"><svg viewBox="0 0 24 24"><path fill="currentColor" d="M21.9 4.3l-3.2 15c-.2 1-.9 1.3-1.7.8l-4.8-3.5-2.3 2.2a1.2 1.2 0 01-1 .5l.4-4.9 8.9-8c.4-.4-.1-.5-.6-.2L6.6 13.1 1.9 11.6c-1-.3-1-1 .2-1.5l18.4-7.1c.9-.3 1.6.2 1.4 1.3z"/></svg></a>
+  <a href="${C.vk}" target="_blank" rel="noopener" aria-label="ВКонтакте" title="ВКонтакте" class="s-vk"><svg viewBox="0 0 24 24"><path fill="currentColor" d="M12.8 17.5C6.6 17.5 3.1 13.3 3 6.3h3.1c.1 5.1 2.4 7.3 4.2 7.7V6.3h2.9v4.4c1.8-.2 3.7-2.2 4.3-4.4h2.9a8.6 8.6 0 01-3.9 5.6 8.9 8.9 0 014.6 5.6h-3.2a5.6 5.6 0 00-4.7-4v4z"/></svg></a>
+  <a href="${C.tgch}" target="_blank" rel="noopener" aria-label="Telegram-канал" title="Telegram-канал «Бояр»" class="s-ch"><svg viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" d="M4 10v4h3l5 4V6L7 10H4zM16 9a4 4 0 010 6M18.5 6.5a7.5 7.5 0 010 11"/></svg></a>
+ </span>`;
+function storesList(){
+  return `<div class="stores">${STORES.map((s,i)=>`<div class="store${s.main?" main":""}"><span class="num${s.opt?" opt":""}">${i+1}</span><div><b>${esc(s.a)}</b><span>${esc(s.h)}</span><span class="kind">${esc(s.k)}${s.ph?` · <a href="tel:${s.ph.replace(/[^+\d]/g,"")}">${esc(s.ph)}</a>`:""}</span></div><a class="rt" href="${routeTo(s)}" target="_blank" rel="noopener" aria-label="Маршрут до ${esc(s.a)}">Маршрут</a></div>`).join("")}</div>`}
+function contactsBlock(){
+  return `<div class="contacts">
+   <div class="cinfo">
+    <div class="row">${icon("phone")}<div><small>Телефон для заказа</small><a class="big" href="tel:${C.telh}">${C.tel}</a>${SOC()}</div></div>
+    <div class="row">${icon("phone")}<div><small>Справочная</small><a href="tel:${C.tel2h}" style="font-weight:700;text-decoration:none">${C.tel2}</a><div style="color:var(--muted);font-size:13px">${C.tel2note}</div></div></div>
+    <div class="row">${icon("pin")}<div><small>8 точек в Нижнем Тагиле</small><b>6 магазинов и 2 оптовых склада</b></div></div>
+    ${storesList()}
+   </div>
+   <div class="mapbox"><div class="fallback">Карта магазинов<br><a href="${C.gis}" target="_blank" rel="noopener">все адреса в 2ГИС ↗</a></div><iframe src="${mapWidget()}" title="Магазины «Бояр» на карте" loading="lazy" allowfullscreen></iframe></div>
+  </div>`;
+}
+function viewContacts(){
+  const fake={url:"/kontakty/",title:"Магазины «Бояр» в Нижнем Тагиле: адреса, телефоны, часы работы",desc:"Сеть магазинов рыбы и морепродуктов «Бояр»: 6 магазинов и 2 оптовых склада в Нижнем Тагиле. Телефон "+C.tel+".",h1:"Контакты и магазины",type:"контакты",parent:"P0001"};
+  return `${crumbs(fake)}<h1 class="script">Контакты и магазины</h1>${seoBox(fake,`<div style="margin-top:6px">Микроразметка Store с адресом, телефоном, часами и координатами — в коде страницы, данные совпадают с Яндекс Картами и 2ГИС.</div>`)}${contactsBlock()}`;
+}
 function viewMap(){
   const rows=[];const walk=(p,d)=>{rows.push([p,d]);kids(p.id).sort((a,b)=>(b.broad||0)-(a.broad||0)).forEach(k=>walk(k,d+1))};walk(byId.P0001,0);
   return `<h1 class="script">Карта сайта</h1><div class="map"><table><thead><tr><th>Страница</th><th>Тип</th><th>Главный запрос</th><th style="text-align:right">Частотность</th></tr></thead><tbody>
@@ -670,6 +799,7 @@ function route(){
   const h=decodeURIComponent(location.hash.slice(1))||"home";let html,m;
   if(h==="home")html=viewHome();
   else if(h==="map")html=viewMap();
+  else if(h==="contacts")html=viewContacts();
   else if((m=h.match(/^i-(P\d+)-(\d+)$/))&&byId[m[1]])html=viewItem(byId[m[1]],+m[2]);
   else if((m=h.match(/^p-(P\d+)$/))&&byId[m[1]]){const p=byId[m[1]];
     html=p.id==="P0001"?viewHome():p.id==="P0002"?viewCatalog(p):p.type.startsWith("категория")?viewCategory(p):isSp(p)?viewSpecies(p):p.type==="блог (хаб)"?viewBlog(p):p.type==="хаб рубрики"?viewHub(p):isArt(p)?viewArticle(p):viewService(p)}
