@@ -6,7 +6,7 @@
 <meta name="googlebot" content="noindex, nofollow">
 <meta name="yandex" content="noindex, nofollow">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Бояр — тестовый сайт</title>
+<title>Бояр — рыба, икра и морепродукты в Нижнем Тагиле</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "Store", "name": "Бояр", "description": "Рыба, икра и морепродукты, натуральное копчение от производителя", "telephone": ["+7 (922) 160-18-03", "+7 (3435) 37-81-50"], "address": {"@type": "PostalAddress", "streetAddress": "Красноармейская ул., 79", "addressLocality": "Нижний Тагил", "addressRegion": "Свердловская область", "addressCountry": "RU"}, "geo": {"@type": "GeoCoordinates", "latitude": 57.919457, "longitude": 59.951487}, "openingHoursSpecification": [{"@type": "OpeningHoursSpecification", "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"], "opens": "09:00", "closes": "23:00"}], "hasMap": "https://yandex.ru/maps/org/boyar/49383595920/", "sameAs": ["https://vk.ru/boyar_nt", "https://t.me/boyarnt", "https://yandex.ru/maps/org/boyar/49383595920/"], "department": [{"@type": "Store", "name": "Бояр", "address": {"@type": "PostalAddress", "streetAddress": "ул. Захарова, 2А", "addressLocality": "Нижний Тагил", "addressCountry": "RU"}, "geo": {"@type": "GeoCoordinates", "latitude": 57.870709, "longitude": 59.94929}}, {"@type": "Store", "name": "Бояр", "address": {"@type": "PostalAddress", "streetAddress": "Садовая ул., 2", "addressLocality": "Нижний Тагил", "addressCountry": "RU"}, "geo": {"@type": "GeoCoordinates", "latitude": 57.910151, "longitude": 59.991009}}, {"@type": "Store", "name": "Бояр", "address": {"@type": "PostalAddress", "streetAddress": "ул. Юности, 16В", "addressLocality": "Нижний Тагил", "addressCountry": "RU"}, "geo": {"@type": "GeoCoordinates", "latitude": 57.909385, "longitude": 60.093289}}, {"@type": "Store", "name": "Бояр", "address": {"@type": "PostalAddress", "streetAddress": "ул. Черных, 42", "addressLocality": "Нижний Тагил", "addressCountry": "RU"}, "geo": {"@type": "GeoCoordinates", "latitude": 57.916525, "longitude": 59.939768}}, {"@type": "Store", "name": "Бояр", "address": {"@type": "PostalAddress", "streetAddress": "ул. Окунева, 17", "addressLocality": "Нижний Тагил", "addressCountry": "RU"}, "geo": {"@type": "GeoCoordinates", "latitude": 57.921329, "longitude": 60.103728}}]}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -659,7 +659,7 @@ function viewItem(p,idx){
    <div class="ptop"><h1 class="script">${esc(cap(name))}</h1><div class="deliv">Доставка<b>по Нижнему Тагилу</b><span>сроки уточняются</span></div></div>
    ${seoBox({...fake,main:qq[0],broad:qq[1],quoted:null,top:[]},`<div style="margin-top:6px">Карточка заводится из прайса. Запрос «${esc(qq[0]||"")}» продвигает страница «${esc(p.h1)}», карточка её поддерживает.</div>`)}
    <div class="product">
-    <div><div class="gal">${art(kind)}${photo(r.img||imgFor(p.id,it.form,p.h1),name)}<span class="note">Тестовое фото с сайта конкурента</span></div>
+    <div><div class="gal">${art(kind)}${photo(r.img||imgFor(p.id,it.form,p.h1),name)}</div>
      <div class="ask"><h3>Есть вопросы?</h3><a class="askphone" href="tel:+79221601803">+7 (922) 160-18-03</a> <span>ежедневно 9:00–23:00</span></div></div>
     <div class="buy">
      <div class="price">${r.price?`<b>${rub(r.price)}</b>${r.kg?`<span class="kg">${rub(r.kg)}/кг</span>`:""}`:`<b><small>Цена по запросу</small></b>`}</div>
@@ -669,7 +669,6 @@ function viewItem(p,idx){
      <p class="lead">${esc(r.desc||`${cap(name)}. Описание появится из прайса «Бояр».`)}</p>
      ${kb.length?`<div class="kbju">${kb.map(k=>`<div><b>${esc(f[k[0]].replace(/[^\d,.]/g,""))}</b><span>${k[1]}</span></div>`).join("")}</div>`:""}
      <dl class="facts">${facts.map(x=>`<div><dt>${x[0]}</dt><dd>${esc(x[1])}</dd></div>`).join("")}</dl>
-     ${r.src?`<p class="src">Тестовые данные из открытого каталога конкурента (<a href="${esc(r.src)}" target="_blank" rel="noopener">источник</a>), будут заменены прайсом «Бояр».</p>`:""}
     </div>
    </div>
    ${sim.length?`<h2 class="script">Похожие товары</h2><div class="grid">${sim.map(card).join("")}</div>`:""}`}
@@ -764,8 +763,8 @@ document.addEventListener("click",e=>{
   const add=e.target.closest("[data-add]");
   if(add){const q=document.querySelector(".qty span");const n=add.closest(".buyrow")&&q?parseInt(q.textContent)||1:1;
     cart+=n;cartSum+=(+add.dataset.add||0)*n;document.getElementById("cartN").textContent=cart;document.getElementById("cartSum").textContent=rub(cartSum);
-    add.classList.add("added");add.lastChild.textContent="В корзине";toast("Добавлено в корзину (тестовый режим)");return}
-  if(e.target.closest("#cartBtn")){toast(cart?`В корзине ${cart} шт. на ${rub(cartSum)} — тест, заказ не отправляется`:"Корзина пуста");return}
+    add.classList.add("added");add.lastChild.textContent="В корзине";toast("Добавлено в корзину");return}
+  if(e.target.closest("#cartBtn")){toast(cart?`В корзине ${cart} шт. на ${rub(cartSum)} · оформление заказа подключим при запуске`:"Корзина пуста");return}
   if(e.target.closest("#mobMenu")){document.getElementById("side").classList.toggle("open");return}
 });
 document.getElementById("searchForm").addEventListener("submit",e=>{e.preventDefault();const v=document.getElementById("q").value.trim();if(v){document.getElementById("sheet").innerHTML=viewSearch(v);window.scrollTo({top:0})}});
