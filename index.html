@@ -56,8 +56,10 @@ svg{display:block}
 .logo{display:block;width:215px;text-decoration:none;filter:drop-shadow(0 6px 14px rgba(0,0,0,.35))}
 .logo svg,.logo img{display:block;width:100%;height:auto}
 .claim{color:#fff;min-width:0}
-.claim .s{font:600 clamp(20px,2.4vw,30px)/1.15 var(--f-display);letter-spacing:-.01em;color:#fff;text-shadow:0 2px 0 rgba(0,0,0,.25)}
-.claim .t{font-weight:700;font-size:12.5px;letter-spacing:.16em;text-transform:uppercase;color:#e7d6c3;margin-top:6px}
+.claim .s{font:700 clamp(24px,3.3vw,44px)/1.05 var(--f-display);letter-spacing:-.025em;text-wrap:balance;color:#fff;text-shadow:0 2px 0 rgba(0,0,0,.25)}
+.claim .t{font-weight:600;font-size:clamp(13px,1.2vw,16px);letter-spacing:.02em;color:#f0e2d2;margin-top:10px}
+.claim .t b{display:inline-block;background:var(--red);color:#fff;border-radius:999px;padding:3px 12px;margin-right:4px;font-weight:700}
+.claim .s em{font-style:normal;color:#ff6b5e}
 .board{position:relative;display:flex;align-items:center;gap:12px;background:linear-gradient(180deg,#4c3727,#3a2a1e);color:#fff;border-radius:20px 40px 40px 20px;padding:12px 44px 12px 18px;box-shadow:inset 0 0 0 1px rgba(255,255,255,.08),0 8px 22px rgba(0,0,0,.25);font-weight:700;line-height:1.25;font-size:14.5px;max-width:260px}
 .board::after{content:"";position:absolute;right:14px;top:50%;width:14px;height:14px;border-radius:50%;transform:translateY(-50%);background:var(--wood-3);box-shadow:inset 0 0 0 2px rgba(255,255,255,.12)}
 .board small{display:block;font-weight:500;color:#e7d6c3;font-size:12.5px}
@@ -286,6 +288,54 @@ h2.script{font:600 clamp(19px,2vw,24px)/1.25 var(--f-display);letter-spacing:-.0
 .homehead h1 span{color:var(--red);display:block}
 .homehead p{margin:10px 0 0;font-size:17px;color:var(--muted);font-weight:600}
 .homehead .cbtns{flex:none}
+/* корзина */
+body.noscroll{overflow:hidden}
+.cdrawer{position:fixed;inset:0;z-index:90}
+.cd-shade{position:absolute;inset:0;background:rgba(20,12,8,.55);opacity:0;transition:opacity .25s}
+.cd-panel{position:absolute;top:0;right:0;bottom:0;width:min(440px,100%);background:#fff;box-shadow:-10px 0 40px rgba(0,0,0,.3);transform:translateX(100%);transition:transform .25s ease;overflow-y:auto;padding:calc(18px + env(safe-area-inset-top,0px)) calc(20px + env(safe-area-inset-right,0px)) calc(24px + env(safe-area-inset-bottom,0px)) 20px}
+.cdrawer.open .cd-shade{opacity:1}.cdrawer.open .cd-panel{transform:none}
+.cd-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
+.cd-head h2{font:600 22px var(--f-display);margin:0;letter-spacing:-.01em}
+.cd-x{border:0;background:var(--cream);width:36px;height:36px;border-radius:50%;font-size:16px}
+.cd-items{display:flex;flex-direction:column;gap:12px}
+.cd-item{display:grid;grid-template-columns:64px minmax(0,1fr) auto;gap:12px;align-items:start;padding-bottom:12px;border-bottom:1px solid var(--line)}
+.th{display:block;width:64px;height:64px;border-radius:12px;background:var(--cream) center/cover no-repeat}
+.ci b{display:block;font-size:14.5px;line-height:1.3}.ci>span{display:block;color:var(--muted);font-size:12.5px;margin:2px 0 8px}
+.cq{display:flex;align-items:center;gap:6px}
+.cq button{width:30px;height:30px;border-radius:50%;border:1px solid var(--line);background:#fff;font-size:16px;font-weight:700}
+.cq button:hover{border-color:var(--red);color:var(--red)}
+.cq span{min-width:22px;text-align:center;font-weight:800}
+.cq .rm{width:auto;border:0;background:none;color:var(--muted);font-size:12.5px;font-weight:600;text-decoration:underline;margin-left:6px}
+.cp{font-weight:800;white-space:nowrap}
+.cd-up{margin:18px 0 6px}
+.cd-up h4{margin:0 0 8px;font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.ur{display:grid;grid-template-columns:40px minmax(0,1fr) auto 32px;gap:10px;align-items:center;padding:6px 0}
+.ur .th{width:40px;height:40px;border-radius:10px}.un{font-size:13.5px;line-height:1.25}
+.ur button{width:32px;height:32px;border-radius:50%;border:0;background:var(--red);color:#fff;font-size:18px;font-weight:700}
+.cd-sum{background:var(--cream);border-radius:16px;padding:14px 16px;margin:16px 0 14px;display:flex;flex-direction:column;gap:6px}
+.cd-sum>div{display:flex;justify-content:space-between;font-size:14.5px}.cd-sum>div span{color:var(--muted)}
+.cd-sum .tot{border-top:1px solid var(--cream-2);padding-top:8px;margin-top:2px;font-size:17px}.cd-sum .tot span{color:var(--ink);font-weight:700}.cd-sum .tot b{font:600 20px var(--f-display)}
+.cd-sum .tot.k{border:0;padding:0;margin:0 0 4px}
+.cd-hint{margin:6px 0 0;font-size:13px;color:var(--green);font-weight:600}
+.cd-note{margin:4px 0 0;font-size:12.5px;color:var(--muted)}
+.cd-go{width:100%;padding:14px;font-size:16px}
+.cd-back-link{border:0;background:none;color:var(--muted);font-weight:600;padding:0;margin-bottom:8px}
+.cd-h{font:600 20px var(--f-display);margin:4px 0 2px}.cd-sub{color:var(--muted);margin:0 0 14px;font-size:14px}
+.cd-form{display:flex;flex-direction:column;gap:12px}
+.cd-form label{display:flex;flex-direction:column;gap:5px;font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.cd-form input,.cd-form select,.cd-form textarea{font:inherit;font-size:15px;text-transform:none;letter-spacing:0;color:var(--ink);border:1px solid var(--line);border-radius:12px;padding:11px 12px;background:#fff;width:100%}
+.cd-form input:focus,.cd-form select:focus,.cd-form textarea:focus{outline:2px solid var(--red);outline-offset:0;border-color:transparent}
+.cd-form .lbl{font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin-bottom:-6px}
+.seg{display:flex;background:var(--cream);border-radius:12px;padding:4px;gap:4px}
+.seg button{flex:1;border:0;background:none;border-radius:9px;padding:10px;font-weight:700;color:var(--muted)}
+.seg button.on{background:#fff;color:var(--ink);box-shadow:0 2px 8px rgba(0,0,0,.08)}
+.seg.sm button{padding:8px 6px;font-size:13px}
+.cd-err{background:#fde8e8;color:var(--red-d);border-radius:10px;padding:10px 12px;margin:0;font-weight:600;font-size:14px}
+.cd-empty,.cd-done{display:flex;flex-direction:column;align-items:center;text-align:center;gap:10px;padding:40px 10px}
+.cd-empty .netico{width:84px;height:84px}
+.cd-empty b,.cd-done h3{font:600 19px var(--f-display);margin:0}.cd-empty span,.cd-done p{color:var(--muted);margin:0}
+.cd-done .ok{width:64px;height:64px;border-radius:50%;background:var(--green);color:#fff;display:grid;place-items:center;font-size:30px;font-weight:800}
+@media (prefers-reduced-motion:reduce){.cd-panel,.cd-shade{transition:none}}
 /* оптовикам */
 .optlead{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);gap:20px;align-items:center;background:var(--cream);border-radius:var(--r-lg);padding:22px}
 .optp{font-size:16px;line-height:1.55;margin:0 0 16px;max-width:60ch}
@@ -329,7 +379,8 @@ h2.script{font:600 clamp(19px,2vw,24px)/1.25 var(--f-display);letter-spacing:-.0
 .hours .today{font-weight:800;color:var(--ink)!important}
 .cbtns{display:flex;gap:10px;flex-wrap:wrap;margin-top:auto}
 .mapbox{position:relative;min-height:520px;border-radius:var(--r-lg);overflow:hidden;background:var(--cream)}
-.mapbox iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.mapbox iframe{position:absolute;left:0;top:0;width:100%;height:calc(100% + 180px);border:0}
+.mapattr{position:absolute;right:10px;bottom:8px;z-index:2;font-size:11.5px;background:rgba(255,255,255,.9);border-radius:6px;padding:2px 8px;color:#333;text-decoration:none}
 .mapcap{position:absolute;left:14px;top:14px;z-index:2;background:#fff;border-radius:12px;padding:8px 12px;box-shadow:0 6px 18px rgba(0,0,0,.18);max-width:70%}
 .mapcap b{display:block;font-size:14px}.mapcap span{font-size:12.5px;color:var(--muted)}
 .store{cursor:pointer;border-radius:10px;padding-left:6px;padding-right:6px;transition:background .15s}
@@ -443,7 +494,7 @@ footer p{margin:10px 0 0;font-size:12.5px;opacity:.75}
   </div>
   <div class="brandrow">
     <a class="logo" href="#home" aria-label="Бояр — на главную" id="logoSlot"></a>
-    <div class="claim"><div class="s">Рыба, икра и морепродукты</div><div class="t">Магазины и доставка по Нижнему Тагилу</div></div>
+    <div class="claim"><div class="s">Рыба, <em>икра</em> и морепродукты</div><div class="t"><b>С 2003 года</b> · 8 магазинов и доставка по Нижнему Тагилу</div></div>
         <div class="cartw">
       <div class="cartbox">
         <button type="button" id="cartBtn" aria-label="Корзина"><svg class="netico" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><defs><clipPath id="netclip"><path d="M5 13.5h22c0 8-4 14.5-11 14.5S5 21.5 5 13.5z"/></clipPath></defs><g class="tail"><path d="M12.5 14C13 9 16.6 5.4 21.4 4.5c.2 4.9-3.4 8.6-8.9 9.5z" fill="currentColor" fill-opacity=".22" stroke-width="1.6"/><path d="M21.4 4.5l3.8-3 .1 3.7 3.6.9-3.9 1.4z" fill="currentColor" stroke-width="1.2"/><circle cx="18.6" cy="7.6" r=".9" fill="currentColor" stroke="none"/></g><path d="M8.5 13.5C8.5 8.2 10.4 6 12.4 6s3.2 1.9 3.6 4.4" stroke-width="1.7"/><path d="M5 13.5h22c0 8-4 14.5-11 14.5S5 21.5 5 13.5z" stroke-width="1.9"/><path d="M-12.8 12l14 18M1.2 12l-14 18M-8.6 12l14 18M5.4 12l-14 18M-4.4 12l14 18M9.6 12l-14 18M-0.2 12l14 18M13.8 12l-14 18M4.0 12l14 18M18.0 12l-14 18M8.2 12l14 18M22.2 12l-14 18M12.4 12l14 18M26.4 12l-14 18M16.6 12l14 18M30.6 12l-14 18M20.8 12l14 18M34.8 12l-14 18M25.0 12l14 18M39.0 12l-14 18M29.2 12l14 18M43.2 12l-14 18M33.4 12l14 18M47.4 12l-14 18" stroke-width="1.05" clip-path="url(#netclip)" opacity=".9"/><path d="M4.5 13.5h23" stroke-width="2.4"/></svg><span class="cnt" id="cartN">0</span><span class="cartlbl"><small>Корзина</small><span id="cartSum">0 ₽</span></span></button>
@@ -453,6 +504,7 @@ footer p{margin:10px 0 0;font-size:12.5px;opacity:.75}
   <div class="sheet" id="sheet"></div>
 </div>
 <button type="button" class="fcart" id="fcart" aria-label="Корзина"><svg class="netico" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><defs><clipPath id="netclip"><path d="M5 13.5h22c0 8-4 14.5-11 14.5S5 21.5 5 13.5z"/></clipPath></defs><g class="tail"><path d="M12.5 14C13 9 16.6 5.4 21.4 4.5c.2 4.9-3.4 8.6-8.9 9.5z" fill="currentColor" fill-opacity=".22" stroke-width="1.6"/><path d="M21.4 4.5l3.8-3 .1 3.7 3.6.9-3.9 1.4z" fill="currentColor" stroke-width="1.2"/><circle cx="18.6" cy="7.6" r=".9" fill="currentColor" stroke="none"/></g><path d="M8.5 13.5C8.5 8.2 10.4 6 12.4 6s3.2 1.9 3.6 4.4" stroke-width="1.7"/><path d="M5 13.5h22c0 8-4 14.5-11 14.5S5 21.5 5 13.5z" stroke-width="1.9"/><path d="M-12.8 12l14 18M1.2 12l-14 18M-8.6 12l14 18M5.4 12l-14 18M-4.4 12l14 18M9.6 12l-14 18M-0.2 12l14 18M13.8 12l-14 18M4.0 12l14 18M18.0 12l-14 18M8.2 12l14 18M22.2 12l-14 18M12.4 12l14 18M26.4 12l-14 18M16.6 12l14 18M30.6 12l-14 18M20.8 12l14 18M34.8 12l-14 18M25.0 12l14 18M39.0 12l-14 18M29.2 12l14 18M43.2 12l-14 18M33.4 12l14 18M47.4 12l-14 18" stroke-width="1.05" clip-path="url(#netclip)" opacity=".9"/><path d="M4.5 13.5h23" stroke-width="2.4"/></svg><span class="cnt" id="fcartN">0</span></button>
+<div class="cdrawer" id="cdrawer" hidden><div class="cd-shade" data-cclose></div><aside class="cd-panel" role="dialog" aria-modal="true" aria-label="Корзина"><div class="cd-head"><h2>Ваш заказ</h2><button type="button" class="cd-x" data-cclose aria-label="Закрыть">✕</button></div><div id="cdbody"></div></aside></div>
 <footer><div class="wrap">
   <a class="logo" href="#home" aria-label="Бояр" id="logoSlot2"></a>
   <div class="fcols">
@@ -608,7 +660,7 @@ function card(it,i){
     <div class="price">${r?`<b>${rub(r.price)}</b>${r.kg?`<span class="kg">${rub(r.kg)}/кг</span>`:""}`:`<b><small>Цена по запросу</small></b>`}</div>
     <a class="name" href="${href}">${esc(cap(itName(it)))}</a>
     <span class="seo-mini seo-only">«${esc(qq[0]||"")}» · ${fmt(qq[1])}</span>
-    <button type="button" class="btn btn-red btn-cart" data-add="${r?r.price:0}"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 4h2l2.4 11h10.2L20 8H7"/><circle cx="9" cy="19" r="1.5"/><circle cx="17" cy="19" r="1.5"/></svg>В корзину</button>
+    <button type="button" class="btn btn-red btn-cart" data-add="${r?r.price:0}" data-key="${p.id}-${it.idx}"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 4h2l2.4 11h10.2L20 8H7"/><circle cx="9" cy="19" r="1.5"/><circle cx="17" cy="19" r="1.5"/></svg>В корзину</button>
   </article>`;
 }
 function seoBox(p,extra){
@@ -657,9 +709,6 @@ function viewHome(){
   const ikra=productsOf(byId.P0007).filter(it=>it.real&&it.real.img&&REDIK.test(it.real.name)).sort((a,b)=>a.real.price-b.real.price);
   const arts=kids("P0005").map(h=>kids(h.id).sort((a,b)=>(b.broad||0)-(a.broad||0))[0]).filter(Boolean).slice(0,4);
   return `${seoBox(home)}
-  <section class="homehead"><div><h1>Рыба и икра от «Бояр» — <span>с 2003 года в Нижнем Тагиле</span></h1>
-    <p>Своё копчение, 8 магазинов и доставка до двери</p></div>
-    <div class="cbtns"><a class="btn btn-red" href="#p-P0002">Выбрать рыбу</a><a class="btn btn-soft" href="#p-P0004">Условия доставки</a></div></section>
   <section class="hero">
     <div class="slide" id="slider">${sl.length?slideHTML(sl,0,pageOf):""}</div>
     <div class="promos">
@@ -727,7 +776,7 @@ function viewItem(p,idx){
     <div class="buy">
      <div class="price">${r.price?`<b>${rub(r.price)}</b>${r.kg?`<span class="kg">${rub(r.kg)}/кг</span>`:""}`:`<b><small>Цена по запросу</small></b>`}</div>
      ${r.pack?`<div class="packs"><span>${esc(r.pack)}</span>${r.kg?`<span class="on">${rub(r.kg)}/кг</span>`:""}</div>`:"<div style='height:14px'></div>"}
-     <div class="buyrow"><span class="qty"><button type="button" data-step="-1" aria-label="Меньше">−</button><span data-base="${r.price||0}">1 шт</span><button type="button" data-step="1" aria-label="Больше">+</button></span><span class="sum" id="sum">${r.price?rub(r.price):""}</span><button type="button" class="btn btn-red btn-cart" data-add="${r.price||0}">В корзину</button></div>
+     <div class="buyrow"><span class="qty"><button type="button" data-step="-1" aria-label="Меньше">−</button><span data-base="${r.price||0}">1 шт</span><button type="button" data-step="1" aria-label="Больше">+</button></span><span class="sum" id="sum">${r.price?rub(r.price):""}</span><button type="button" class="btn btn-red btn-cart" data-add="${r.price||0}" data-key="${p.id}-${it.idx}">В корзину</button></div>
      <p class="weigh">Точная цена — после взвешивания</p>
      <p class="lead">${esc(r.desc||`${cap(name)}. Описание появится из прайса «Бояр».`)}</p>
      ${kb.length?`<div class="kbju">${kb.map(k=>`<div><b>${esc(f[k[0]].replace(/[^\d,.]/g,""))}</b><span>${k[1]}</span></div>`).join("")}</div>`:""}
@@ -808,7 +857,9 @@ const SOCL=[["wa","WhatsApp",()=>C.wa],["tg","Telegram",()=>C.tg],["max","MAX",(
 const SOC=(big)=>`<span class="soc${big?" big":""}">${SOCL.map(([k,l,u])=>{const href=u();
   return `<a ${href?`href="${href}" target="_blank" rel="noopener"`:`href="#" data-max`} class="s-${k}" aria-label="${l}" title="${k==="max"&&!href?"MAX: "+C.tel:l}"><i><svg viewBox="0 0 24 24" aria-hidden="true">${ICO[k]}</svg></i>${big?`<span>${l}</span>`:""}</a>`}).join("")}</span>`;
 /* Карта магазинов: виджет Яндекс Карт с одной точкой и крупным масштабом (как pizza1nt.ru) — без карточки организации и поиска */
-const ymapSrc=s=>`https://yandex.ru/map-widget/v1/?ll=${s.ll[0]},${s.ll[1]}&z=17&pt=${s.ll[0]},${s.ll[1]},pm2${s.opt?"bl":"rd"}m`;
+/* Рекламные блоки виджет показывает в нижних ~170 px: окно карты выше рамки на 180 px, низ уходит за край; центр сдвинут на юг, чтобы точка была по центру видимой части */
+const YCROP=180;
+const ymapSrc=s=>`https://yandex.ru/map-widget/v1/?ll=${s.ll[0]},${(s.ll[1]-0.00051).toFixed(6)}&z=17&pt=${s.ll[0]},${s.ll[1]},pm2${s.opt?"bl":"rd"}m`;
 function showStore(i){
   const s=STORES[i];document.querySelectorAll("[data-ymap]").forEach(f=>{f.src=ymapSrc(s);f.title="Карта: Нижний Тагил, "+s.a});
   document.querySelectorAll(".store").forEach((el,j)=>el.classList.toggle("on",j===i));
@@ -824,7 +875,7 @@ function contactsBlock(){
     <div class="row">${icon("pin")}<div><small>8 точек в Нижнем Тагиле</small><b>6 магазинов и 2 оптовых склада</b></div></div>
     ${storesList()}
    </div>
-   <div class="mapbox"><iframe data-ymap src="${ymapSrc(STORES[0])}" loading="lazy" allowfullscreen title="Карта: Нижний Тагил, ${esc(STORES[0].a)}"></iframe><div class="mapcap"><b>${esc(STORES[0].a)}</b><span>${esc(STORES[0].h)}</span></div></div>
+   <div class="mapbox"><iframe data-ymap src="${ymapSrc(STORES[0])}" loading="lazy" allowfullscreen title="Карта: Нижний Тагил, ${esc(STORES[0].a)}"></iframe><div class="mapcap"><b>${esc(STORES[0].a)}</b><span>${esc(STORES[0].h)}</span></div><a class="mapattr" href="https://yandex.ru/maps/" target="_blank" rel="noopener">© Яндекс Карты</a></div>
   </div>`;
 }
 function viewContacts(){
@@ -864,21 +915,94 @@ function route(){
   if(!route.first)window.scrollTo({top:0});route.first=false;
 }
 route.first=true;
-let cart=0,cartSum=0;
+/* ---------- корзина и оформление (по образцу pizza1nt.ru) ---------- */
+let CART=[];try{CART=JSON.parse(localStorage.getItem("boyar-cart")||"[]")}catch(e){CART=[]}
+let CSTEP="cart",CMODE="delivery";
+const DISTRICTS=["Центр","Вагонка","ГГМ","Выя","Красный Камень","Тагилстрой","Рудник","Старатель","Смычка","Голый Камень","Лебяжка","Пырловка","Северный","Кирпичный","Фатеево","Горбуново","Кулибина","ВМЗ","Николо-Павловское","Черноисточинск","Другой посёлок рядом"];
+const cartCount=()=>CART.reduce((s,x)=>s+x.q,0);
+const cartTotal=()=>CART.reduce((s,x)=>s+x.price*x.q,0);
+const delivFee=()=>CMODE==="pickup"||!CART.length?0:(cartTotal()>=DELIV.free?0:DELIV.price);
+function itemByKey(k){const i=k.lastIndexOf("-"),p=byId[k.slice(0,i)];if(!p)return null;const it=productsOf(p)[+k.slice(i+1)];if(!it)return null;
+  const r=it.real||{};return {k,name:cap(itName(it)),price:r.price||0,pack:r.pack||"",img:r.img||imgFor(p.id,it.form,p.h1,it.idx)||""}}
+function cartAdd(k,n){const ex=CART.find(x=>x.k===k);if(ex)ex.q+=n;else{const it=itemByKey(k);if(!it)return;it.q=n;CART.push(it)}saveCart()}
+function saveCart(){try{localStorage.setItem("boyar-cart",JSON.stringify(CART))}catch(e){}updCartUI()}
+function updCartUI(){const n=cartCount();document.getElementById("cartN").textContent=n;document.getElementById("fcartN").textContent=n;document.getElementById("cartSum").textContent=rub(cartTotal());
+  const r=document.getElementById("cartBtn").getBoundingClientRect();document.getElementById("fcart").classList.toggle("show",r.bottom<0&&n>0);
+  if(!document.getElementById("cdrawer").hidden)renderCart()}
+function openCart(){CSTEP="cart";document.getElementById("cdrawer").hidden=false;document.body.classList.add("noscroll");renderCart();requestAnimationFrame(()=>document.getElementById("cdrawer").classList.add("open"))}
+function closeCart(){const d=document.getElementById("cdrawer");d.classList.remove("open");document.body.classList.remove("noscroll");setTimeout(()=>{d.hidden=true},250)}
+function upsell(){const inCart=new Set(CART.map(x=>x.k));const picks=[];const want=[/икра кижуча 100|икра кеты 100|икра горбуши/i,/хариус|омул|ряпушка|сырок|пелядь/i,/юкола|вялен|чебак/i,/креветк|кальмар/i];
+  for(const re of want){for(const p of S){const l=productsOf(p);const i=l.findIndex(it=>it.real&&it.real.img&&it.real.price<=3500&&re.test(it.real.name)&&!inCart.has(p.id+"-"+it.idx));if(i>=0){picks.push(p.id+"-"+i);break}}if(picks.length>=3)break}
+  return picks.map(itemByKey).filter(Boolean)}
+function renderCart(){
+  const box=document.getElementById("cdbody"),n=cartCount(),sum=cartTotal(),fee=delivFee(),left=DELIV.free-sum;
+  const totals=`<div class="cd-sum"><div><span>Позиций (${n})</span><b>${rub(sum)}</b></div>${CMODE==="pickup"?`<div><span>Самовывоз</span><b>бесплатно</b></div>`:`<div><span>Доставка</span><b>${fee?rub(fee):"бесплатно"}</b></div>`}
+    <div class="tot"><span>Итого</span><b>${rub(sum+fee)}</b></div>
+    ${CMODE!=="pickup"&&left>0&&n?`<p class="cd-hint">Добавьте ещё на ${rub(left)} — и доставка станет бесплатной.</p>`:""}
+    <p class="cd-note">Весовой товар: точную сумму назовём после взвешивания.</p></div>`;
+  if(CSTEP==="done"){box.innerHTML=`<div class="cd-done"><div class="ok">✓</div><h3>Заказ почти отправлен</h3><p>Мы открыли WhatsApp с вашим заказом — нажмите там «Отправить». Перезвоним в течение нескольких минут и подтвердим заказ.</p><p>Если WhatsApp не открылся, позвоните: <a href="tel:${C.telh}">${C.tel}</a></p><button type="button" class="btn btn-red" data-cclose>Вернуться в магазин</button></div>`;return}
+  if(!n){box.innerHTML=`<div class="cd-empty">${document.querySelector("#cartBtn .netico").outerHTML}<b>Корзина пока пустая</b><span>Выберите рыбу, икру или морепродукты — привезём к столу.</span><button type="button" class="btn btn-red" data-cclose data-go="#p-P0002">Перейти в каталог</button></div>`;return}
+  if(CSTEP==="cart"){
+    const up=upsell();
+    box.innerHTML=`<div class="cd-items">${CART.map(x=>`<div class="cd-item"><span class="th" style="background-image:url('${x.img}')"></span><div class="ci"><b>${esc(x.name)}</b><span>${x.pack?esc(x.pack)+" · ":""}${x.price?rub(x.price)+" за шт.":"цена уточняется"}</span>
+      <div class="cq"><button type="button" data-cq="${x.k}" data-d="-1" aria-label="Меньше">−</button><span>${x.q}</span><button type="button" data-cq="${x.k}" data-d="1" aria-label="Больше">+</button><button type="button" class="rm" data-crm="${x.k}">убрать</button></div></div><b class="cp">${x.price?rub(x.price*x.q):"—"}</b></div>`).join("")}</div>
+      ${up.length?`<div class="cd-up"><h4>Добавить к заказу</h4>${up.map(u=>`<div class="ur"><span class="th" style="background-image:url('${u.img}')"></span><span class="un">${esc(u.name)}</span><b>${rub(u.price)}</b><button type="button" data-cadd="${u.k}" aria-label="Добавить">+</button></div>`).join("")}</div>`:""}
+      ${totals}<button type="button" class="btn btn-red cd-go" data-cstep="checkout">Оформить заказ</button>`;
+    return}
+  // оформление
+  const shops=STORES.filter(s=>!s.opt);
+  box.innerHTML=`<button type="button" class="cd-back-link" data-cstep="cart">← Назад к заказу</button><h3 class="cd-h">Оформление</h3><p class="cd-sub">${n} поз. на ${rub(sum)} — заполните данные, и мы соберём заказ.</p>
+   <form id="coForm" class="cd-form" novalidate>
+    <div class="seg"><button type="button" class="${CMODE==="delivery"?"on":""}" data-cmode="delivery">Доставка</button><button type="button" class="${CMODE==="pickup"?"on":""}" data-cmode="pickup">Самовывоз</button></div>
+    <label>Имя<input id="co-name" autocomplete="name" placeholder="Как к вам обращаться" required></label>
+    <label>Телефон<input id="co-tel" type="tel" autocomplete="tel" placeholder="+7 ___ ___-__-__" required></label>
+    ${CMODE==="delivery"?`<label>Район доставки<select id="co-dist" required><option value="">— выберите район —</option>${DISTRICTS.map(d=>`<option>${d}</option>`).join("")}</select></label>
+     <p class="cd-hint">Доставка ${DELIV.price} ₽, бесплатно от ${DELIV.free.toLocaleString("ru-RU")} ₽. Заказ до ${DELIV.cutoff} — привезём сегодня.</p>
+     <label>Адрес<input id="co-addr" autocomplete="street-address" placeholder="Улица, дом, квартира" required></label>
+     <label>Удобное время<select id="co-slot">${DELIV.slots.map(s=>`<option>${s}</option>`).join("")}</select></label>`
+    :`<label>Магазин для самовывоза<select id="co-shop">${shops.map(s=>`<option>${esc(s.a)} — ${esc(s.h)}</option>`).join("")}</select></label>`}
+    <div class="lbl">Плательщик</div><div class="seg sm" data-radio="co-payer"><button type="button" class="on" data-v="Частное лицо">Частное лицо</button><button type="button" data-v="Юрлицо / ИП">Юрлицо / ИП</button></div>
+    <div class="lbl">Оплата</div><div class="seg sm" data-radio="co-pay"><button type="button" class="on" data-v="При получении">При получении</button><button type="button" data-v="СБП / QR">СБП / QR</button><button type="button" data-v="По счёту">По счёту</button></div>
+    <label>Комментарий<textarea id="co-com" rows="2" placeholder="Например: позвонить за час, нужна нарезка"></textarea></label>
+    ${totals.replace('<div class="cd-sum">','<div class="cd-sum"><div class="tot k"><span>К оплате</span><b>'+rub(sum+fee)+'</b></div>').replace(/<div class="tot"><span>Итого<\/span><b>[^<]*<\/b><\/div>/,"")}
+    <p class="cd-err" id="co-err" hidden></p>
+    <button type="submit" class="btn btn-red cd-go">Подтвердить заказ</button>
+    <p class="cd-note">Заказ подтвердим по телефону в течение нескольких минут.</p></form>`;
+}
+function submitOrder(){
+  const g=id=>{const e=document.getElementById(id);return e?e.value.trim():""};const seg=n=>{const b=document.querySelector(`[data-radio="${n}"] .on`);return b?b.dataset.v:""};
+  const err=document.getElementById("co-err");const miss=[];
+  if(!g("co-name"))miss.push("имя");if(g("co-tel").replace(/\D/g,"").length<10)miss.push("телефон");
+  if(CMODE==="delivery"){if(!g("co-dist"))miss.push("район");if(!g("co-addr"))miss.push("адрес")}
+  if(miss.length){err.hidden=false;err.textContent="Заполните: "+miss.join(", ");return}
+  const sum=cartTotal(),fee=delivFee();
+  const lines=CART.map((x,i)=>`${i+1}. ${x.name}${x.pack?" ("+x.pack+")":""} × ${x.q}${x.price?" = "+rub(x.price*x.q):""}`);
+  const txt=["Заказ с сайта «Бояр»",...lines,`Товары: ${rub(sum)}`,CMODE==="pickup"?"Самовывоз: "+g("co-shop"):`Доставка: ${fee?rub(fee):"бесплатно"}\nРайон: ${g("co-dist")}\nАдрес: ${g("co-addr")}\nВремя: ${g("co-slot")}`,`Итого: ${rub(sum+fee)}`,`Имя: ${g("co-name")}`,`Телефон: ${g("co-tel")}`,`Плательщик: ${seg("co-payer")}`,`Оплата: ${seg("co-pay")}`,g("co-com")?"Комментарий: "+g("co-com"):""].filter(Boolean).join("\n");
+  window.open(C.wa+"?text="+encodeURIComponent(txt),"_blank","noopener");
+  CART=[];saveCart();CSTEP="done";renderCart();
+}
 document.addEventListener("click",e=>{
   const st=e.target.closest("[data-step]");
   if(st){const sp=st.parentElement.querySelector("span");let v=parseInt(sp.textContent)||1;v=Math.max(1,v+ +st.dataset.step);sp.textContent=v+" шт";
     const s=document.getElementById("sum"),b=+sp.dataset.base;if(s&&b)s.textContent=rub(b*v);return}
   const add=e.target.closest("[data-add]");
   if(add){const q=document.querySelector(".qty span");const n=add.closest(".buyrow")&&q?parseInt(q.textContent)||1:1;
-    cart+=n;cartSum+=(+add.dataset.add||0)*n;document.getElementById("cartN").textContent=cart;document.getElementById("fcartN").textContent=cart;document.getElementById("cartSum").textContent=rub(cartSum);
+    if(add.dataset.key)cartAdd(add.dataset.key,n);
     flyToCart(add);add.classList.add("added");add.lastChild.textContent="В корзине";toast("Добавлено в корзину");return}
   const sr=e.target.closest("[data-store]");if(sr&&!e.target.closest("a")){showStore(+sr.dataset.store);const mb=document.querySelector(".mapbox");if(mb&&innerWidth<900)mb.scrollIntoView({behavior:"smooth",block:"center"});return}
   const mx=e.target.closest("[data-max]");if(mx){e.preventDefault();try{navigator.clipboard.writeText(C.telh).catch(()=>{})}catch(_){};toast("MAX: найдите нас по номеру "+C.tel+" (номер скопирован)");return}
-  if(e.target.closest("#fcart")){toast(cart?`В корзине ${cart} шт. на ${rub(cartSum)} · оформление заказа подключим при запуске`:"Корзина пуста");return}
-  if(e.target.closest("#cartBtn")){toast(cart?`В корзине ${cart} шт. на ${rub(cartSum)} · оформление заказа подключим при запуске`:"Корзина пуста");return}
+  if(e.target.closest("#fcart")||e.target.closest("#cartBtn")){openCart();return}
+  const cc=e.target.closest("[data-cclose]");if(cc){closeCart();if(cc.dataset.go)location.hash=cc.dataset.go.slice(1);return}
+  const cq=e.target.closest("[data-cq]");if(cq){const x=CART.find(i=>i.k===cq.dataset.cq);if(x){x.q=Math.max(1,x.q+ +cq.dataset.d);saveCart()}return}
+  const crm=e.target.closest("[data-crm]");if(crm){CART=CART.filter(i=>i.k!==crm.dataset.crm);saveCart();return}
+  const ca=e.target.closest("[data-cadd]");if(ca){cartAdd(ca.dataset.cadd,1);return}
+  const cs=e.target.closest("[data-cstep]");if(cs){CSTEP=cs.dataset.cstep;renderCart();document.querySelector(".cd-panel").scrollTop=0;return}
+  const cm=e.target.closest("[data-cmode]");if(cm){CMODE=cm.dataset.cmode;renderCart();return}
+  const rb=e.target.closest("[data-radio] button");if(rb){rb.parentElement.querySelectorAll("button").forEach(b=>b.classList.toggle("on",b===rb));return}
   if(e.target.closest("#mobMenu")){document.getElementById("side").classList.toggle("open");return}
 });
+document.addEventListener("submit",e=>{if(e.target.id==="coForm"){e.preventDefault();submitOrder();return}});
+document.addEventListener("keydown",e=>{if(e.key==="Escape"&&!document.getElementById("cdrawer").hidden)closeCart()});
 document.addEventListener("submit",e=>{if(e.target.id!=="optForm")return;e.preventDefault();const g=id=>document.getElementById(id).value.trim();const txt=`Здравствуйте! Запрос оптового прайса.\nИмя: ${g("of-name")}\nКомпания: ${g("of-co")}\nТелефон: ${g("of-tel")}\n${g("of-msg")}`;window.open(C.wa+"?text="+encodeURIComponent(txt),"_blank","noopener")});
 document.getElementById("searchForm").addEventListener("submit",e=>{e.preventDefault();const v=document.getElementById("q").value.trim();if(v){document.getElementById("sheet").innerHTML=viewSearch(v);window.scrollTo({top:0})}});
 function flyToCart(btn){
@@ -907,7 +1031,8 @@ function flyToCart(btn){
 }
 function toast(t){let el=document.querySelector(".toast");if(!el){el=document.createElement("div");el.className="toast";el.setAttribute("role","status");document.body.appendChild(el)}el.textContent=t;el.hidden=false;clearTimeout(toast.t);toast.t=setTimeout(()=>el.hidden=true,2400)}
 // SEO-слой выключен для показа заказчику: включить — document.body.classList.add("seo-on")
-window.addEventListener("scroll",()=>{const r=document.getElementById("cartBtn").getBoundingClientRect();document.getElementById("fcart").classList.toggle("show",r.bottom<0&&cart>0)},{passive:true});
+window.addEventListener("scroll",()=>{const r=document.getElementById("cartBtn").getBoundingClientRect();document.getElementById("fcart").classList.toggle("show",r.bottom<0&&cartCount()>0)},{passive:true});
+updCartUI();
 window.addEventListener("hashchange",route);route();
 </script>
 
