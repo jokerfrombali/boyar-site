@@ -317,18 +317,12 @@ h2.script{font:600 clamp(19px,2vw,24px)/1.25 var(--f-display);letter-spacing:-.0
 .hours .today{font-weight:800;color:var(--ink)!important}
 .cbtns{display:flex;gap:10px;flex-wrap:wrap;margin-top:auto}
 .mapbox{position:relative;min-height:520px;border-radius:var(--r-lg);overflow:hidden;background:var(--cream)}
-.mapbox .lmap{position:absolute;inset:0;z-index:1}
-.leaflet-container{font:inherit;background:var(--cream)}
-.bpin{display:grid;place-items:center;width:34px;height:34px;border-radius:50% 50% 50% 4px;transform:rotate(-45deg);background:var(--red);border:3px solid #fff;box-shadow:0 4px 10px rgba(0,0,0,.3)}
-.bpin b{transform:rotate(45deg);color:#fff;font-weight:800;font-size:13px}
-.bpin.opt{background:#3d7fd6}.bpin.main{width:40px;height:40px}
-.leaflet-popup-content-wrapper{border-radius:14px}
-.leaflet-popup-content{margin:12px 14px;font-size:13.5px;line-height:1.4}
-.leaflet-popup-content b{display:block;font-size:15px;margin-bottom:2px}
-.leaflet-popup-content .pk{color:var(--muted)}
-.leaflet-popup-content .pb{display:flex;gap:8px;margin-top:8px}
-.leaflet-popup-content .pb a{background:var(--red);color:#fff;text-decoration:none;font-weight:700;border-radius:8px;padding:6px 10px}
-.leaflet-popup-content .pb a.s{background:var(--cream);color:var(--ink)}
+.mapbox iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.mapcap{position:absolute;left:14px;top:14px;z-index:2;background:#fff;border-radius:12px;padding:8px 12px;box-shadow:0 6px 18px rgba(0,0,0,.18);max-width:70%}
+.mapcap b{display:block;font-size:14px}.mapcap span{font-size:12.5px;color:var(--muted)}
+.store{cursor:pointer;border-radius:10px;padding-left:6px;padding-right:6px;transition:background .15s}
+.store:hover{background:rgba(255,255,255,.6)}
+.store.on{background:#fff;box-shadow:inset 3px 0 0 var(--red)}
 .mapbox .fallback{position:absolute;inset:0;display:grid;place-items:center;text-align:center;padding:20px;color:var(--muted)}
 .homecontacts{margin-top:34px}
 @media (max-width:900px){.contacts{grid-template-columns:1fr}.mapbox{min-height:300px}}
@@ -799,35 +793,15 @@ const ICO={
 const SOCL=[["wa","WhatsApp",()=>C.wa],["tg","Telegram",()=>C.tg],["max","MAX",()=>C.max],["vk","ВКонтакте",()=>C.vk]];
 const SOC=(big)=>`<span class="soc${big?" big":""}">${SOCL.map(([k,l,u])=>{const href=u();
   return `<a ${href?`href="${href}" target="_blank" rel="noopener"`:`href="#" data-max`} class="s-${k}" aria-label="${l}" title="${k==="max"&&!href?"MAX: "+C.tel:l}"><i><svg viewBox="0 0 24 24" aria-hidden="true">${ICO[k]}</svg></i>${big?`<span>${l}</span>`:""}</a>`}).join("")}</span>`;
-/* Карта магазинов: Leaflet + светлая подложка Esri — без рекламы и чужих организаций */
-let LEAF=null;
-function loadLeaflet(){
-  if(LEAF)return LEAF;
-  LEAF=new Promise((res,rej)=>{
-    const l=document.createElement("link");l.rel="stylesheet";l.href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css";document.head.appendChild(l);
-    const s=document.createElement("script");s.src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js";s.onload=()=>res(window.L);s.onerror=rej;document.head.appendChild(s);
-  });return LEAF;
-}
-function initStoresMap(){
-  document.querySelectorAll("[data-stores-map]").forEach(el=>{
-    if(el.dataset.ready)return;el.dataset.ready=1;
-    loadLeaflet().then(L=>{
-      const map=L.map(el,{scrollWheelZoom:false,attributionControl:true});
-      const E="https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/";
-      L.tileLayer(E+"World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}",{maxZoom:16,attribution:"Карта © Esri, HERE, Garmin, © OpenStreetMap"}).addTo(map);
-      L.tileLayer(E+"World_Light_Gray_Reference/MapServer/tile/{z}/{y}/{x}",{maxZoom:16,pane:"shadowPane"}).addTo(map);
-      const pts=STORES.map((s,i)=>{
-        const icon=L.divIcon({className:"",html:`<div class="bpin${s.opt?" opt":""}${s.main?" main":""}"><b>${i+1}</b></div>`,iconSize:s.main?[40,40]:[34,34],iconAnchor:s.main?[20,40]:[17,34],popupAnchor:[0,-34]});
-        L.marker([s.ll[1],s.ll[0]],{icon,title:s.a}).addTo(map).bindPopup(`<b>${esc(s.a)}</b><div>${esc(s.h)}</div><div class="pk">${esc(s.k)}</div><div class="pb"><a href="${routeTo(s)}" target="_blank" rel="noopener">Маршрут</a><a class="s" href="tel:${(s.ph||C.tel).replace(/[^+\d]/g,"")}">Позвонить</a></div>`);
-        return [s.ll[1],s.ll[0]];});
-      const fit=()=>{map.invalidateSize();map.fitBounds(pts,{padding:[50,50],maxZoom:14})};fit();setTimeout(fit,250);
-      map.on("click focus",()=>map.scrollWheelZoom.enable());
-      el.parentElement.querySelector(".fallback").hidden=true;
-    }).catch(()=>{const f=el.parentElement.querySelector(".fallback");if(f)f.innerHTML=`Карта не загрузилась. <a href="${C.gis}" target="_blank" rel="noopener">Все адреса в 2ГИС ↗</a>`});
-  });
+/* Карта магазинов: виджет Яндекс Карт с одной точкой и крупным масштабом (как pizza1nt.ru) — без карточки организации и поиска */
+const ymapSrc=s=>`https://yandex.ru/map-widget/v1/?ll=${s.ll[0]},${s.ll[1]}&z=17&pt=${s.ll[0]},${s.ll[1]},pm2${s.opt?"bl":"rd"}m`;
+function showStore(i){
+  const s=STORES[i];document.querySelectorAll("[data-ymap]").forEach(f=>{f.src=ymapSrc(s);f.title="Карта: Нижний Тагил, "+s.a});
+  document.querySelectorAll(".store").forEach((el,j)=>el.classList.toggle("on",j===i));
+  const cap=document.querySelector(".mapcap");if(cap)cap.innerHTML=`<b>${esc(s.a)}</b><span>${esc(s.h)}</span>`;
 }
 function storesList(){
-  return `<div class="stores">${STORES.map((s,i)=>`<div class="store${s.main?" main":""}"><span class="num${s.opt?" opt":""}">${i+1}</span><div><b>${esc(s.a)}</b><span>${esc(s.h)}</span><span class="kind">${esc(s.k)}${s.ph?` · <a href="tel:${s.ph.replace(/[^+\d]/g,"")}">${esc(s.ph)}</a>`:""}</span></div><a class="rt" href="${routeTo(s)}" target="_blank" rel="noopener" aria-label="Маршрут до ${esc(s.a)}">Маршрут</a></div>`).join("")}</div>`}
+  return `<div class="stores">${STORES.map((s,i)=>`<div class="store${s.main?" main on":""}" data-store="${i}" role="button" tabindex="0" title="Показать на карте"><span class="num${s.opt?" opt":""}">${i+1}</span><div><b>${esc(s.a)}</b><span>${esc(s.h)}</span><span class="kind">${esc(s.k)}${s.ph?` · <a href="tel:${s.ph.replace(/[^+\d]/g,"")}">${esc(s.ph)}</a>`:""}</span></div><a class="rt" href="${routeTo(s)}" target="_blank" rel="noopener" aria-label="Маршрут до ${esc(s.a)}">Маршрут</a></div>`).join("")}</div>`}
 function contactsBlock(){
   return `<div class="contacts">
    <div class="cinfo">
@@ -836,7 +810,7 @@ function contactsBlock(){
     <div class="row">${icon("pin")}<div><small>8 точек в Нижнем Тагиле</small><b>6 магазинов и 2 оптовых склада</b></div></div>
     ${storesList()}
    </div>
-   <div class="mapbox"><div class="fallback">Загружаем карту магазинов…</div><div class="lmap" data-stores-map></div></div>
+   <div class="mapbox"><iframe data-ymap src="${ymapSrc(STORES[0])}" loading="lazy" allowfullscreen title="Карта: Нижний Тагил, ${esc(STORES[0].a)}"></iframe><div class="mapcap"><b>${esc(STORES[0].a)}</b><span>${esc(STORES[0].h)}</span></div></div>
   </div>`;
 }
 function viewContacts(){
@@ -873,7 +847,6 @@ function route(){
     const show=j=>{i=j;document.getElementById("slider").innerHTML=slideHTML(sl,i,pageOf)};
     SL=setInterval(()=>{if(document.getElementById("slider"))show((i+1)%sl.length)},5000);
     document.getElementById("slider").addEventListener("click",e=>{const d=e.target.closest("[data-slide]");if(d){show(+d.dataset.slide);clearInterval(SL)}})}
-  initStoresMap();
   if(!route.first)window.scrollTo({top:0});route.first=false;
 }
 route.first=true;
@@ -886,6 +859,7 @@ document.addEventListener("click",e=>{
   if(add){const q=document.querySelector(".qty span");const n=add.closest(".buyrow")&&q?parseInt(q.textContent)||1:1;
     cart+=n;cartSum+=(+add.dataset.add||0)*n;document.getElementById("cartN").textContent=cart;document.getElementById("fcartN").textContent=cart;document.getElementById("cartSum").textContent=rub(cartSum);
     flyToCart(add);add.classList.add("added");add.lastChild.textContent="В корзине";toast("Добавлено в корзину");return}
+  const sr=e.target.closest("[data-store]");if(sr&&!e.target.closest("a")){showStore(+sr.dataset.store);const mb=document.querySelector(".mapbox");if(mb&&innerWidth<900)mb.scrollIntoView({behavior:"smooth",block:"center"});return}
   const mx=e.target.closest("[data-max]");if(mx){e.preventDefault();try{navigator.clipboard.writeText(C.telh).catch(()=>{})}catch(_){};toast("MAX: найдите нас по номеру "+C.tel+" (номер скопирован)");return}
   if(e.target.closest("#fcart")){toast(cart?`В корзине ${cart} шт. на ${rub(cartSum)} · оформление заказа подключим при запуске`:"Корзина пуста");return}
   if(e.target.closest("#cartBtn")){toast(cart?`В корзине ${cart} шт. на ${rub(cartSum)} · оформление заказа подключим при запуске`:"Корзина пуста");return}
